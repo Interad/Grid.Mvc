@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Interad.Grid.Mvc</id>
+    <version>3.1.0-ci1030</version>
+    <title>Interad.Grid.Mvc</title>
+    <authors>Interad - The .NET Experts</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package provides functionality to build GridView based on your model items collection. Grid.Mvc supports sorting, filtering and paging your data.</description>
+    <tags>ASP.NET MVC Control GridView</tags>
+  </metadata>
+</package>
