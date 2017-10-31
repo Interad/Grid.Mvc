@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq.Expressions;
 using GridMvc.Filtering;
 using GridMvc.Sorting;
+using GridMvc.Utility;
 
 namespace GridMvc.Columns
 {
@@ -31,6 +32,12 @@ namespace GridMvc.Columns
         public IGridColumn<T> Titled(string title)
         {
             Title = title;
+            return this;
+        }
+
+        public IGridColumn<T> Titled(Expression<Func<T, dynamic>> titleField)
+        {
+            Title = PropertiesHelper.GetDisplayName(titleField);
             return this;
         }
 

@@ -27,6 +27,8 @@ namespace GridMvc.Columns
         /// <param name="title">Title text</param>
         IGridColumn<T> Titled(string title);
 
+        IGridColumn<T> Titled(Expression<Func<T, dynamic>> titleField);
+
         /// <summary>
         ///     Need to encode the content of the gridColumn
         /// </summary>
