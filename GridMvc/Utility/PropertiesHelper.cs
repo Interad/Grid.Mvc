@@ -100,5 +100,27 @@ namespace GridMvc.Utility
         {
             return (T) type.GetCustomAttributes(typeof (T), true).FirstOrDefault();
         }
+
+        public static PropertyInfo GetProperty<T, T2>(Expression<Func<T, T2>> expression)
+        {
+            MemberExpression memberExpression = null;
+
+            switch (expression.Body.NodeType)
+            {
+                case ExpressionType.Convert:
+                    memberExpression = ((UnaryExpression)expression.Body).Operand as MemberExpression;
+                    break;
+                case ExpressionType.MemberAccess:
+                    memberExpression = expression.Body as MemberExpression;
+                    break;
+            }
+
+            if (memberExpression == null)
+            {
+                throw new ArgumentException("Not a member access", nameof(expression));
+            }
+
+            return memberExpression.Member as PropertyInfo;
+        }
     }
 }

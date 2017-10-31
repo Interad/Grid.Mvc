@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using GridMvc.Filtering;
 using GridMvc.Sorting;
@@ -63,7 +65,7 @@ namespace GridMvc.Columns
                 _filter = new DefaultColumnFilter<T, TDataType>(expression);
                 //Generate unique column name:
                 Name = PropertiesHelper.BuildColumnNameFromMemberExpression(expr);
-                Title = Name; //Using the same name by default
+                Title = GetDisplayName(expression) ?? Name; //Using the same name by default
             }
         }
 
@@ -219,6 +221,24 @@ namespace GridMvc.Columns
             _filter = new CustomExpressionFilter<T>(expression);
             _filterWidgetTypeName = "QueryFilter";
             return this;
+        }
+
+        public static string GetDisplayName<T>(Expression<Func<T, TDataType>> titleField) where T : class
+        {
+            var propertyInfo = PropertiesHelper.GetProperty(titleField);
+            var displayAttribute = propertyInfo.GetAttribute<DisplayAttribute>();
+            if (displayAttribute != null)
+            {
+                return displayAttribute.Name;
+            }
+
+            var displayNameAttribute = propertyInfo.GetAttribute<DisplayNameAttribute>();
+            if (displayNameAttribute != null)
+            {
+                return displayNameAttribute.DisplayName;
+            }
+
+            return null;
         }
     }
 }
