@@ -65,7 +65,7 @@ namespace GridMvc.Columns
                 _filter = new DefaultColumnFilter<T, TDataType>(expression);
                 //Generate unique column name:
                 Name = PropertiesHelper.BuildColumnNameFromMemberExpression(expr);
-                Title = GetDisplayName(expression) ?? Name; //Using the same name by default
+                Title = PropertiesHelper.GetDisplayName(expression) ?? Name;
             }
         }
 
@@ -221,24 +221,6 @@ namespace GridMvc.Columns
             _filter = new CustomExpressionFilter<T>(expression);
             _filterWidgetTypeName = "QueryFilter";
             return this;
-        }
-
-        public static string GetDisplayName<T>(Expression<Func<T, TDataType>> titleField) where T : class
-        {
-            var propertyInfo = PropertiesHelper.GetProperty(titleField);
-            var displayAttribute = propertyInfo.GetAttribute<DisplayAttribute>();
-            if (displayAttribute != null)
-            {
-                return displayAttribute.Name;
-            }
-
-            var displayNameAttribute = propertyInfo.GetAttribute<DisplayNameAttribute>();
-            if (displayNameAttribute != null)
-            {
-                return displayNameAttribute.DisplayName;
-            }
-
-            return null;
         }
     }
 }

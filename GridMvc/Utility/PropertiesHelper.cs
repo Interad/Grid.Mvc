@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -121,6 +123,24 @@ namespace GridMvc.Utility
             }
 
             return memberExpression.Member as PropertyInfo;
+        }
+
+        public static string GetDisplayName<T, T2>(Expression<Func<T, T2>> titleField)
+        {
+            var propertyInfo = GetProperty(titleField);
+            var displayAttribute = propertyInfo.GetAttribute<DisplayAttribute>();
+            if (displayAttribute != null)
+            {
+                return displayAttribute.Name;
+            }
+
+            var displayNameAttribute = propertyInfo.GetAttribute<DisplayNameAttribute>();
+            if (displayNameAttribute != null)
+            {
+                return displayNameAttribute.DisplayName;
+            }
+
+            return null;
         }
     }
 }
