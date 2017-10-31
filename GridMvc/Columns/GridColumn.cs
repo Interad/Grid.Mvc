@@ -217,6 +217,7 @@ namespace GridMvc.Columns
         public override IGridColumn<T> SetCustomFilter(Expression<Func<T, string, bool>> expression)
         {
             _filter = new CustomExpressionFilter<T>(expression);
+            _filterWidgetTypeName = "QueryFilter";
             return this;
         }
     }

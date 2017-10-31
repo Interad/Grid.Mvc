@@ -51,6 +51,7 @@ GridMvc = (function ($) {
         this.addFilterWidget(new NumberFilterWidget());
         this.addFilterWidget(new DateTimeFilterWidget());
         this.addFilterWidget(new BooleanFilterWidget());
+        this.addFilterWidget(new QueryFilterWidget());
 
         this.openedMenuBtn = null;
         this.initFilters();
@@ -723,6 +724,84 @@ BooleanFilterWidget = (function ($) {
     };
 
     return booleanFilterWidget;
+})(window.jQuery);
+
+/***
+* QueryFilterWidget - Is used per default for a "Custom Filter"
+* This widget only provides a text input that can then be used in the custom filter condition.
+*/
+QueryFilterWidget = (function ($) {
+    function queryFilterWidget() { }
+    /***
+    * This method must return type of columns that must be associated with current widget
+    * If you not specify your own type name for column (see 'SetFilterWidgetType' method), GridMvc setup column type name from .Net type ("System.DateTime etc.)
+    */
+    queryFilterWidget.prototype.getAssociatedTypes = function () { return ["QueryFilter"]; };
+    /***
+    * This method invokes when filter widget was shown on the page
+    */
+    queryFilterWidget.prototype.onShow = function () {
+        var textBox = this.container.find(".grid-filter-input");
+        if (textBox.length <= 0) return;
+        textBox.focus();
+    };
+    /***
+    * This method specify whether onRender 'Clear filter' button for this widget.
+    */
+    queryFilterWidget.prototype.showClearFilterButton = function () { return true; };
+    /***
+    * This method will invoke when user first clicked on filter button.
+    * container - html element, which must contain widget layout;
+    * lang - current language settings;
+    * typeName - current column type (if widget assign to multipile types, see: getAssociatedTypes);
+    * filterValue - current filter value;
+    * cb - callback function that must invoked when user want to filter this column. Widget must pass filter type and filter value.
+    */
+    queryFilterWidget.prototype.onRender = function (container, lang, typeName, values, cb) {
+        this.cb = cb;
+        this.container = container;
+        this.lang = lang;
+        this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
+        this.renderWidget();
+        this.registerEvents();
+    };
+    /***
+    * Internal method that build widget layout and append it to the widget container
+    */
+    queryFilterWidget.prototype.renderWidget = function () {
+        var html = '<div class="form-group">\
+                        <label>' + this.lang.filterValueLabel + '</label>\
+                        <input type="text" class="grid-filter-input form-control" value="' + this.value.filterValue + '" />\
+                    </div>\
+                    <div class="grid-filter-buttons">\
+                        <button type="button" class="btn btn-primary grid-apply" >' + this.lang.applyFilterButtonText + '</button>\
+                    </div>';
+        this.container.append(html);
+    };
+    /***
+    * Internal method that register event handlers for 'apply' button.
+    */
+    queryFilterWidget.prototype.registerEvents = function () {
+        //get apply button from:
+        var applyBtn = this.container.find(".grid-apply");
+        //save current context:
+        var $context = this;
+        //register onclick event handler
+        applyBtn.click(function () {
+            //get filter value:
+            var value = $context.container.find(".grid-filter-input").val();
+            //invoke callback with selected filter values:
+            var filterValues = [{ filterValue: value }];
+            $context.cb(filterValues);
+        });
+        //register onEnter event for filter text box:
+        this.container.find(".grid-filter-input").keyup(function (event) {
+            if (event.keyCode == 13) { applyBtn.click(); }
+            if (event.keyCode == 27) { GridMvc.closeOpenedPopups(); }
+        });
+    };
+
+    return queryFilterWidget;
 })(window.jQuery);
 
 //startup init:
