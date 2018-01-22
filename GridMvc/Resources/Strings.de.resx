@@ -121,7 +121,7 @@
     <value>Es gibt keine Elemente zum Anzeigen</value>
   </data>
   <data name="FilterButtonTooltipText" xml:space="preserve">
-    <value>Fügen Sie auf dem Feld filtern</value>
+    <value>Spalte filtern</value>
   </data>
   <data name="Lang" xml:space="preserve">
     <value>de</value>
