@@ -138,5 +138,7 @@ namespace GridMvc.Columns
         public abstract IGridCell GetValue(T instance);
 
         public abstract IGridColumn<T> SetCustomFilter(Expression<Func<T, string, bool>> expression);
+
+        public abstract IGridColumn<T> SelectListFilter(IEnumerable<GridSelectListItem> selectList);
     }
 }

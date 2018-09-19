@@ -222,5 +222,11 @@ namespace GridMvc.Columns
             _filterWidgetTypeName = "QueryFilter";
             return this;
         }
+
+        public override IGridColumn<T> SelectListFilter(IEnumerable<GridSelectListItem> selectList)
+        {
+            SetFilterWidgetType("SelectListWidget", selectList);
+            return this;
+        }
     }
 }

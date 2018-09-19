@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using GridMvc.Filtering;
 using GridMvc.Sorting;
+using GridMvc.Utility;
 
 namespace GridMvc.Columns
 {
@@ -70,6 +71,8 @@ namespace GridMvc.Columns
         ///     Supply a custom filter option that is executed
         /// </summary>
         IGridColumn<T> SetCustomFilter(Expression<Func<T, string, bool>> expression);
+
+        IGridColumn<T> SelectListFilter(IEnumerable<GridSelectListItem> selectList);
     }
 
     public interface IColumn

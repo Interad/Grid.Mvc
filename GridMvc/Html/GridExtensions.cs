@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
 using GridMvc.Columns;
+using GridMvc.Utility;
 
 namespace GridMvc.Html
 {
@@ -63,6 +64,25 @@ namespace GridMvc.Html
         {
             Func<T, string> valueContraint = a => constraint(a)(null).ToHtmlString();
             return column.RenderValueAs(valueContraint);
+        }
+
+        // Create a GridSelectList from any List
+        public static IEnumerable<GridSelectListItem> AsSelectListItems<T>(this IEnumerable<T> list, Func<T, string> name, Func<T, string> value, string firstEmptyString = null)
+        {
+            if (firstEmptyString != null)
+            {
+                yield return new GridSelectListItem { Text = firstEmptyString, Value = string.Empty };
+            }
+
+            if (list == null)
+            {
+                yield break;
+            }
+
+            foreach (var item in list)
+            {
+                yield return new GridSelectListItem { Text = name.Invoke(item), Value = value.Invoke(item) };
+            }
         }
     }
 }

@@ -52,6 +52,7 @@ GridMvc = (function ($) {
         this.addFilterWidget(new DateTimeFilterWidget());
         this.addFilterWidget(new BooleanFilterWidget());
         this.addFilterWidget(new QueryFilterWidget());
+        this.addFilterWidget(new SelectListFilterWidget());
 
         this.openedMenuBtn = null;
         this.initFilters();
@@ -802,6 +803,75 @@ QueryFilterWidget = (function ($) {
     };
 
     return queryFilterWidget;
+})(window.jQuery);
+
+SelectListFilterWidget = (function($) {
+    function selectListWidget() {
+        selectListWidget.prototype.getAssociatedTypes = function () {
+            return ["SelectListWidget"];
+        };
+        /***
+        * This method invokes when filter widget was shown on the page
+        */
+        selectListWidget.prototype.onShow = function () {
+            /* Place your on show logic here */
+        };
+
+        selectListWidget.prototype.showClearFilterButton = function () {
+            return true;
+        };
+        /***
+        * This method will invoke when user was clicked on filter button.
+        * container - html element, which must contain widget layout;
+        * lang - current language settings;
+        * typeName - current column type (if widget assign to multipile types, see: getAssociatedTypes);
+        * values - current filter values. Array of objects [{filterValue: '', filterType:'1'}];
+        * cb - callback function that must invoked when user want to filter this column. Widget must pass filter type and filter value.
+        * data - widget data passed from the server
+        */
+        selectListWidget.prototype.onRender = function (container, lang, typeName, values, cb, data) {
+            //store parameters:
+            this.cb = cb;
+            this.container = container;
+            this.lang = lang;
+            this.items = data;
+
+            //this filterwidget demo supports only 1 filter value for column column
+            this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };
+            this.renderWidget(); //onRender filter widget
+            this.registerEvents(); //handle events
+        };
+
+        selectListWidget.prototype.renderWidget = function () {
+            var items = this.items;
+            var html = '<div class="form-group">' +
+                '<select class="grid-filter-type enums-list form-control">';
+
+            for (var i = 0; i < items.length; i++) {
+                html += '<option ' + (items[i] == this.value.filterValue ? 'selected="selected"' : '') + ' value="' + items[i]['Value'] + '">' + items[i]['Text'] + '</option>';
+            }
+
+            html += '</select>' +
+                    '</div>';
+
+            html += '<div class="grid-filter-buttons">\
+                        <button type="button" class="btn btn-primary grid-apply">' + this.lang.applyFilterButtonText + '</button>\
+                    </div>';
+            this.container.append(html);
+        };
+
+        /***
+        * Internal method that register event handlers for 'apply' button.
+        */
+        selectListWidget.prototype.registerEvents = function () {
+            var $context = this;
+            this.container.find('.grid-apply').click(function () {
+                var values = [{ filterValue: $context.container.find('.enums-list').val(), filterType: 1 /* Equals */ }];
+                $context.cb(values);
+            });
+        };
+    }
+    return selectListWidget;
 })(window.jQuery);
 
 //startup init:

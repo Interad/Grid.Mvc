@@ -161,6 +161,7 @@
     <Compile Include="Sorting\OrderByGridOrderer.cs" />
     <Compile Include="Sorting\IColumnOrderer.cs" />
     <Compile Include="Sorting\ThenByColumnOrderer.cs" />
+    <Compile Include="Utility\GridSelectListItem.cs" />
     <Compile Include="Utility\JsonHelper.cs" />
     <Compile Include="Utility\PropertiesHelper.cs" />
     <Compile Include="Columns\GridColumn.cs" />
