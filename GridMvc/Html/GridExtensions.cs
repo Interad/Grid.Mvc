@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.WebPages;
 using GridMvc.Columns;
 using GridMvc.Utility;
+using GridMvc.Utility.ExportableGrid;
 
 namespace GridMvc.Html
 {
@@ -49,6 +50,11 @@ namespace GridMvc.Html
             //wrap source grid:
             var htmlGrid = new HtmlGrid<T>(sourceGrid, helper.ViewContext, viewName);
             return htmlGrid;
+        }
+
+        public static HtmlGrid<T> Grid<T>(this HtmlHelper helper, ExportableGrid<T> grid) where T : class
+        {
+            return grid.AsHtmlGrid(helper);
         }
 
         //support IHtmlString in RenderValueAs method

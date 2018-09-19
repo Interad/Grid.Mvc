@@ -58,3 +58,11 @@ like:
 Also you need to ensure that jQuery has registred on the page before gridmvc.min.js script.
 
 For more documetation, please see: http://gridmvc.codeplex.com/
+
+
+
+Exportable Grids for seamless XLS-Export of HTML Grids:
+ - Instead of Configuring the Grid in the View Configure it on the Server:
+ - var exportGrid = new ExportableGrid<Order>("t", new List<Order>()).WithColumnConfiguration(columns => columns.Add(x => x.Customer))
+ - afterwards you can export your grid as XLS: exportGrid.AsWorkBook()
+ - to use it in the view, use the regular Grid Helper: Html.Grid(exportGrid)
