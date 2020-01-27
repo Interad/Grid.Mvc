@@ -27,6 +27,14 @@
                         @Html.ActionLink("Edit", "Edit", new { id = o.OrderID }, new { @class = "modal_link" })
                     </b>);
 
+        columns.Add(o => (o.EmployeeID ?? 0) + o.OrderID, "Ids")
+                .Titled("IDs")
+                .SetWidth(30);
+
+        columns.Add(o => o.EmployeeID + o.OrderID, "Ids2")
+                .Titled("ID?s")
+                .SetWidth(30);
+
         /* Adding "OrderID" column: */
 
         columns.Add(o => o.OrderID)

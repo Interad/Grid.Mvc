@@ -135,7 +135,8 @@ namespace GridMvc.Columns
 
         private IGridColumn<T> CreateColumn<TKey>(Expression<Func<T, TKey>> constraint, bool hidden, string columnName)
         {
-            IGridColumn<T> newColumn = _columnBuilder.CreateColumn(constraint, hidden);
+            var tryNonMemberExpression = !(constraint?.Body is MemberExpression) && !string.IsNullOrWhiteSpace(columnName);
+            IGridColumn<T> newColumn = _columnBuilder.CreateColumn(constraint, hidden, tryNonMemberExpression);
             if (!string.IsNullOrEmpty(columnName))
                 newColumn.Name = columnName;
             return newColumn;

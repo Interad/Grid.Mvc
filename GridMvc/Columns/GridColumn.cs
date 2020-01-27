@@ -37,7 +37,7 @@ namespace GridMvc.Columns
         private IGridColumnHeaderRenderer _headerRenderer;
 
 
-        public GridColumn(Expression<Func<T, TDataType>> expression, Grid<T> grid)
+        public GridColumn(Expression<Func<T, TDataType>> expression, Grid<T> grid, bool tryNonMemberExpression = false)
         {
             #region Setup defaults
 
@@ -55,17 +55,17 @@ namespace GridMvc.Columns
             if (expression != null)
             {
                 var expr = expression.Body as MemberExpression;
-                if (expr == null)
+                if (expr == null && !tryNonMemberExpression)
                     throw new ArgumentException(
                         string.Format("Expression '{0}' must be a member expression", expression),
                         "expression");
 
                 _constraint = expression.Compile();
                 _orderers.Insert(0, new OrderByGridOrderer<T, TDataType>(expression));
-                _filter = new DefaultColumnFilter<T, TDataType>(expression);
+                _filter = !tryNonMemberExpression ? (IColumnFilter<T>)new DefaultColumnFilter<T, TDataType>(expression) : new ComplexExpressionColumnFilter<T,TDataType>(expression);
                 //Generate unique column name:
                 Name = PropertiesHelper.BuildColumnNameFromMemberExpression(expr);
-                Title = PropertiesHelper.GetDisplayName(expression) ?? Name;
+                Title = !tryNonMemberExpression ? PropertiesHelper.GetDisplayName(expression) ?? Name : "";
             }
         }
 

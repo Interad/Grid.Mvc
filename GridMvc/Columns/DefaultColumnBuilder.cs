@@ -22,13 +22,13 @@ namespace GridMvc.Columns
 
         #region IColumnBuilder<T> Members
 
-        public IGridColumn<T> CreateColumn<TDataType>(Expression<Func<T, TDataType>> constraint, bool hidden)
+        public IGridColumn<T> CreateColumn<TDataType>(Expression<Func<T, TDataType>> constraint, bool hidden, bool tryNonMemberExpression = false)
         {
-            bool isExpressionOk = constraint == null || constraint.Body as MemberExpression != null;
-            if (isExpressionOk)
+            bool isExpressionOk = constraint == null || constraint.Body is MemberExpression;
+            if (isExpressionOk || tryNonMemberExpression)
             {
                 if (!hidden)
-                    return new GridColumn<T, TDataType>(constraint, _grid);
+                    return new GridColumn<T, TDataType>(constraint, _grid, tryNonMemberExpression);
                 return new HiddenGridColumn<T, TDataType>(constraint, _grid);
             }
             throw new NotSupportedException(string.Format("Expression '{0}' not supported by grid", constraint));

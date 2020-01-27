@@ -18,7 +18,8 @@ namespace GridMvc.Columns
         /// </summary>
         /// <param name="expression">Column expression</param>
         /// <param name="hidden">Is column hidden</param>
-        IGridColumn<T> CreateColumn<TDataType>(Expression<Func<T, TDataType>> expression, bool hidden);
+        /// <param name="tryNonMemberExpression">Try to use the expression, even if it is not a MemberExpression (at your own risk)</param>
+        IGridColumn<T> CreateColumn<TDataType>(Expression<Func<T, TDataType>> expression, bool hidden, bool tryNonMemberExpression = false);
 
         /// <summary>
         ///     Creates column from property info using reflection

@@ -108,6 +108,7 @@
     <Compile Include="Filtering\CustomExpressionFilter.cs" />
     <Compile Include="Filtering\DefaultColumnFilter.cs" />
     <Compile Include="Filtering\ColumnFilterValue.cs" />
+    <Compile Include="Filtering\ComplexExpressionColumnFilter.cs" />
     <Compile Include="Filtering\IFilterColumnCollection.cs" />
     <Compile Include="Filtering\Types\BooleanFilterType.cs" />
     <Compile Include="Filtering\Types\ByteFilterType.cs" />
