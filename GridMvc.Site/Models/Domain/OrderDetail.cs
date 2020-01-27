@@ -9,6 +9,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace GridMvc.Site.Models
 {
@@ -18,7 +19,10 @@ namespace GridMvc.Site.Models
     public partial class OrderDetail
     {
         [Key]
+        [Column(Order = 0)]
         public int OrderID { get; set; }
+        [Key]
+        [Column(Order = 1)]
         public int ProductID { get; set; }
         public decimal UnitPrice { get; set; }
         public short Quantity { get; set; }
