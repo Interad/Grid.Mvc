@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace GridMvc.Filtering
@@ -7,12 +8,12 @@ namespace GridMvc.Filtering
     ///     Structure that specifies filter settings for each column
     /// </summary>
     [DataContract]
-    public struct ColumnFilterValue
+    public struct ColumnFilterValue : IEquatable<ColumnFilterValue>
     {
         //[DataMember(Name = "columnName")]
         public string ColumnName;
 
-        [DataMember(Name = "filterType")] 
+        [DataMember(Name = "filterType")]
         public GridFilterType FilterType;
 
         public string FilterValue;
@@ -27,6 +28,27 @@ namespace GridMvc.Filtering
         public static ColumnFilterValue Null
         {
             get { return default(ColumnFilterValue); }
+        }
+
+        public bool Equals(ColumnFilterValue other)
+        {
+            return ColumnName == other.ColumnName && FilterType == other.FilterType && FilterValue == other.FilterValue;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is ColumnFilterValue other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (ColumnName != null ? ColumnName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (int)FilterType;
+                hashCode = (hashCode * 397) ^ (FilterValue != null ? FilterValue.GetHashCode() : 0);
+                return hashCode;
+            }
         }
 
         public static bool operator ==(ColumnFilterValue a, ColumnFilterValue b)

@@ -32,7 +32,24 @@ namespace GridMvc.Tests
                    && compareObject.UInt32Field == UInt32Field
                    && compareObject.UInt64Field == UInt64Field;
         }
-    } 
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Created.GetHashCode();
+                hashCode = (hashCode * 397) ^ Id;
+                hashCode = (hashCode * 397) ^ (Title != null ? Title.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Child.ChildCreated.GetHashCode());
+                hashCode = (hashCode * 397) ^ (Child.ChildTitle != null ? Child.ChildTitle.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Int16Field.GetHashCode();
+                hashCode = (hashCode * 397) ^ UInt16Field.GetHashCode();
+                hashCode = (hashCode * 397) ^ UInt32Field.GetHashCode();
+                hashCode = (hashCode * 397) ^ UInt64Field.GetHashCode();
+                return hashCode;
+            }
+        }
+    }
 
     public class TestModelChild
     {
