@@ -8,4 +8,3 @@ var initCodeCuts = function() {
         $(this).closest(".code-cut").find(".syntaxhighlighter").toggle();
     });
 };
-     
