@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using GridMvc.Pagination;
 
 namespace GridMvc.Site.Models.Grids
 {

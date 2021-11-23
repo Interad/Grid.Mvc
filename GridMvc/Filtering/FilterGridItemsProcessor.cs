@@ -6,7 +6,7 @@ using GridMvc.Columns;
 namespace GridMvc.Filtering
 {
     /// <summary>
-    ///     Grid items filter proprocessor
+    ///     Grid items filter preprocessor
     /// </summary>
     internal class FilterGridItemsProcessor<T> : IGridItemsProcessor<T> where T : class
     {

@@ -11,19 +11,17 @@ namespace GridMvc.Site.Controllers
         {
             if (Request.UserLanguages != null)
             {
-
                 // Validate culture name
                 string cultureName = Request.UserLanguages[0]; // obtain it from HTTP header AcceptLanguages
                 if (!string.IsNullOrEmpty(cultureName))
                 {
-                    // Modify current thread's culture            
+                    // Modify current thread's culture
                     Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureName);
                     Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(cultureName);
                 }
             }
             base.OnActionExecuting(filterContext);
         }
-
 
         protected string RenderPartialViewToString(string viewName, object model)
         {

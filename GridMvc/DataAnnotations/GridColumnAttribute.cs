@@ -44,7 +44,6 @@ namespace GridMvc.DataAnnotations
         /// </summary>
         public string FilterWidgetType { get; set; }
 
-
         /// <summary>
         ///     Sets or get sort initial direction
         /// </summary>

@@ -16,7 +16,7 @@ namespace GridMvc
     /// </summary>
     public class Grid<T> : GridBase<T>, IGrid where T : class
     {
-        private readonly IGridAnnotaionsProvider _annotaions;
+        private readonly IGridAnnotationsProvider _annotations;
         private readonly IColumnBuilder<T> _columnBuilder;
         private readonly GridColumnCollection<T> _columnsCollection;
         private readonly FilterGridItemsProcessor<T> _currentFilterItemsProcessor;
@@ -50,12 +50,12 @@ namespace GridMvc
             AddItemsPreProcessor(_currentFilterItemsProcessor);
             InsertItemsProcessor(0, _currentSortItemsProcessor);
 
-            _annotaions = new GridAnnotaionsProvider();
+            _annotations = new GridAnnotationsProvider();
 
             #endregion
 
             //Set up column collection:
-            _columnBuilder = new DefaultColumnBuilder<T>(this, _annotaions);
+            _columnBuilder = new DefaultColumnBuilder<T>(this, _annotations);
             _columnsCollection = new GridColumnCollection<T>(_columnBuilder, _settings.SortSettings);
             RenderOptions = new GridRenderOptions();
 
@@ -179,7 +179,7 @@ namespace GridMvc
         /// </summary>
         private void ApplyGridSettings()
         {
-            GridTableAttribute opt = _annotaions.GetAnnotationForTable<T>();
+            GridTableAttribute opt = _annotations.GetAnnotationForTable<T>();
             if (opt == null) return;
             EnablePaging = opt.PagingEnabled;
             if (opt.PageSize > 0)
@@ -213,6 +213,5 @@ namespace GridMvc
                     Columns.Add(pi);
             }
         }
-
     }
 }

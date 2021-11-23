@@ -268,10 +268,10 @@ namespace GridMvc.Tests.Filtering
         }
 
         private void TestFiltering<T>(ColumnFilterValue settings, Expression<Func<TestModel, T>> column,
-                                   Func<TestModel, bool> filterContraint)
+                                   Func<TestModel, bool> filterConstraint)
         {
             _grid.Columns.Add(column, settings.ColumnName).Filterable(true);
-            if (!ValidateFiltering(_grid, settings, filterContraint))
+            if (!ValidateFiltering(_grid, settings, filterConstraint))
             {
                 Assert.Fail("Filtering works incorrect");
             }
@@ -294,9 +294,9 @@ namespace GridMvc.Tests.Filtering
             IEnumerable<TestModel> resultCollection = _grid.GetItemsToDisplay();
             if (!resultCollection.Any()) Assert.Fail("No items to compare");
 
-            IEnumerable<TestModel> etalonCollection = _repo.GetAll().Where(filterExpression);
+            IEnumerable<TestModel> expectedCollection = _repo.GetAll().Where(filterExpression);
 
-            if (!ValidateCollectionsTheSame(resultCollection, etalonCollection))
+            if (!ValidateCollectionsTheSame(resultCollection, expectedCollection))
             {
                 return false;
             }
@@ -322,6 +322,5 @@ namespace GridMvc.Tests.Filtering
             }
             return true;
         }
-
     }
 }

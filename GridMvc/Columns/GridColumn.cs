@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using GridMvc.Filtering;
 using GridMvc.Sorting;
@@ -35,7 +33,6 @@ namespace GridMvc.Columns
 
         private string _filterWidgetTypeName;
         private IGridColumnHeaderRenderer _headerRenderer;
-
 
         public GridColumn(Expression<Func<T, TDataType>> expression, Grid<T> grid)
         {
@@ -94,7 +91,6 @@ namespace GridMvc.Columns
         }
 
         public override bool FilterEnabled { get; set; }
-
 
         public override IColumnFilter<T> Filter
         {
@@ -177,22 +173,21 @@ namespace GridMvc.Columns
                     throw new InvalidOperationException("You need to specify render expression using RenderValueAs");
                 }
 
-
                 TDataType value = default(TDataType);
 
-                var nullReferece = false;
+                var nullReference = false;
                 try
                 {
                     value = _constraint(instance);
                 }
                 catch (NullReferenceException)
                 {
-                    nullReferece = true;
+                    nullReference = true;
                     // specified expression throws NullReferenceException
                     // example: x=>x.Child.Property, when Child is NULL
                 }
 
-                if (nullReferece || value == null)
+                if (nullReference || value == null)
                     textValue = string.Empty;
                 else if (!string.IsNullOrEmpty(ValuePattern))
                     textValue = string.Format(ValuePattern, value);

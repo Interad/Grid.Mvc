@@ -124,9 +124,9 @@ namespace GridMvc.Html
             return this;
         }
 
-        public IGridHtmlOptions<T> SetRowCssClasses(Func<T, string> contraint)
+        public IGridHtmlOptions<T> SetRowCssClasses(Func<T, string> constraint)
         {
-            _source.SetRowCssClassesContraint(contraint);
+            _source.SetRowCssClassesConstraint(constraint);
             return this;
         }
 
@@ -153,7 +153,7 @@ namespace GridMvc.Html
         }
 
         /// <summary>
-        ///     Set to true if we want to show grid itmes count
+        ///     Set to true if we want to show grid items count
         ///     - Author - Jeeva J
         /// </summary>
         public IGridHtmlOptions<T> WithGridItemsCount(string gridItemsName)

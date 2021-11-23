@@ -72,7 +72,7 @@ namespace GridMvc.Html
         /// <summary>
         ///     Setup specific row css classes
         /// </summary>
-        IGridHtmlOptions<T> SetRowCssClasses(Func<T, string> contraint);
+        IGridHtmlOptions<T> SetRowCssClasses(Func<T, string> constraint);
 
         /// <summary>
         ///     Specify Grid client name

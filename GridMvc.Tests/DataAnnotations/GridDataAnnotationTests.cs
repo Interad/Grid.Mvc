@@ -9,7 +9,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GridMvc.Tests.DataAnnotations
 {
-
     [TestClass]
     public class GridDataAnnotationTests
     {

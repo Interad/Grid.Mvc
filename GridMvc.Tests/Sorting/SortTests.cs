@@ -117,7 +117,7 @@ namespace GridMvc.Tests.Sorting
         {
             _grid.Columns.Add(x => x.Child.ChildTitle).Sortable(true);
             if (
-                !ValidateSorting<string, object>(_grid, x => x.Child.ChildTitle, 
+                !ValidateSorting<string, object>(_grid, x => x.Child.ChildTitle,
                                                          "Child.ChildTitle", GridSortDirection.Descending, null, null))
             {
                 Assert.Fail("Sort works incorrect");
@@ -129,7 +129,7 @@ namespace GridMvc.Tests.Sorting
         {
             _grid.Columns.Add(x => x.Child.ChildCreated).Sortable(true);
             if (
-                !ValidateSorting<DateTime,  object>(_grid, x => x.Child.ChildCreated, 
+                !ValidateSorting<DateTime,  object>(_grid, x => x.Child.ChildCreated,
                                                              "Child.ChildCreated", GridSortDirection.Descending, null,
                                                              null))
             {
@@ -200,14 +200,14 @@ namespace GridMvc.Tests.Sorting
             grid.Settings = settingsMock.Object;
 
             IEnumerable<TestModel> resultCollection = _grid.GetItemsToDisplay();
-            IOrderedEnumerable<TestModel> etalonCollection;
+            IOrderedEnumerable<TestModel> expectedCollection;
             switch (direction)
             {
                 case GridSortDirection.Ascending:
-                    etalonCollection = _repo.GetAll().OrderBy(orderExpression);
+                    expectedCollection = _repo.GetAll().OrderBy(orderExpression);
                     break;
                 case GridSortDirection.Descending:
-                    etalonCollection = _repo.GetAll().OrderByDescending(orderExpression);
+                    expectedCollection = _repo.GetAll().OrderByDescending(orderExpression);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction");
@@ -217,17 +217,17 @@ namespace GridMvc.Tests.Sorting
                 switch (thenByDirection)
                 {
                     case GridSortDirection.Ascending:
-                        etalonCollection = etalonCollection.ThenBy(thenByExpression);
+                        expectedCollection = expectedCollection.ThenBy(thenByExpression);
                         break;
                     case GridSortDirection.Descending:
-                        etalonCollection = etalonCollection.ThenByDescending(thenByExpression);
+                        expectedCollection = expectedCollection.ThenByDescending(thenByExpression);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException("thenByDirection");
                 }
             }
 
-            if (!ValidateCollectionsTheSame(resultCollection, etalonCollection))
+            if (!ValidateCollectionsTheSame(resultCollection, expectedCollection))
             {
                 return false;
             }

@@ -10,7 +10,7 @@ using GridMvc.Utility;
 namespace GridMvc.Columns
 {
     /// <summary>
-    ///     Collection of collumns
+    ///     Collection of columns
     /// </summary>
     public class GridColumnCollection<T> : KeyedCollection<string, IGridColumn>, IGridColumnCollection<T>
     {
@@ -88,7 +88,6 @@ namespace GridMvc.Columns
             return Insert(position, constraint, false);
         }
 
-
         public IGridColumn<T> Insert<TKey>(int position, Expression<Func<T, TKey>> constraint, string columnName)
         {
             IGridColumn<T> newColumn = CreateColumn(constraint, false, columnName);
@@ -105,8 +104,6 @@ namespace GridMvc.Columns
         {
             return base.GetEnumerator();
         }
-
-
 
         public IGridColumn<T> Get<TKey>(Expression<Func<T, TKey>> constraint)
         {

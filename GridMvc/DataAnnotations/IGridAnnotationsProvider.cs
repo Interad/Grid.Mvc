@@ -2,7 +2,7 @@
 
 namespace GridMvc.DataAnnotations
 {
-    internal interface IGridAnnotaionsProvider
+    internal interface IGridAnnotationsProvider
     {
         GridColumnAttribute GetAnnotationForColumn<T>(PropertyInfo pi);
         GridHiddenColumnAttribute GetAnnotationForHiddenColumn<T>(PropertyInfo pi);

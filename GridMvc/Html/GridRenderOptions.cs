@@ -35,7 +35,6 @@
         /// </summary>
         public string GridName { get; set; }
 
-
         /// <summary>
         ///     Specify to render grid body only
         /// </summary>

@@ -27,11 +27,11 @@ namespace GridMvc.Tests.Columns
 
             _grid = new TestGrid(items);
 
-            _columns = new GridColumnCollection<TestModel>(new DefaultColumnBuilder<TestModel>(_grid, new GridAnnotaionsProvider()), _grid.Settings.SortSettings);
+            _columns = new GridColumnCollection<TestModel>(new DefaultColumnBuilder<TestModel>(_grid, new GridAnnotationsProvider()), _grid.Settings.SortSettings);
         }
 
         [TestMethod]
-        public void TestColumnsRetriveByMemberExpression()
+        public void TestColumnsRetrieveByMemberExpression()
         {
             var addedColumn = _columns.Add(x => x.Created);
             var column = _columns.Get(x => x.Created);
@@ -40,14 +40,13 @@ namespace GridMvc.Tests.Columns
         }
 
         [TestMethod]
-        public void TestColumnsRetriveByName()
+        public void TestColumnsRetrieveByName()
         {
             var addedColumn = _columns.Add(x => x.Created);
             var column = _columns.GetByName("Created");
 
             Assert.AreEqual(addedColumn, column);
         }
-
 
         [TestMethod]
         public void TestRenderingEmptyValueIfNullReferenceOccurs()
@@ -63,7 +62,7 @@ namespace GridMvc.Tests.Columns
         }
 
         [TestMethod]
-        public void TestColumnsRetriveByNameWithCustomName()
+        public void TestColumnsRetrieveByNameWithCustomName()
         {
             var addedColumn = _columns.Add(x => x.Created, "My_Column");
             var column = _columns.GetByName("My_Column");

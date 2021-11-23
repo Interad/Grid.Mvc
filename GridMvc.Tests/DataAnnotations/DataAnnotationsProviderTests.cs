@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using GridMvc.DataAnnotations;
+﻿using GridMvc.DataAnnotations;
 using GridMvc.Tests.DataAnnotations.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,11 +7,11 @@ namespace GridMvc.Tests.DataAnnotations
     [TestClass]
     public class DataAnnotationsProviderTests
     {
-        private IGridAnnotaionsProvider _provider;
+        private IGridAnnotationsProvider _provider;
         [TestInitialize]
         public void Init()
         {
-            _provider = new GridAnnotaionsProvider();
+            _provider = new GridAnnotationsProvider();
         }
 
         [TestMethod]

@@ -38,7 +38,7 @@ namespace GridMvc.Filtering.Types
 
             object typedValue = GetTypedValue(value);
             if (typedValue == null)
-                return null; //incorrent filter value;
+                return null; //incorrect filter value;
 
             Type targetType = TargetType;
 

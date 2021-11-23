@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using GridMvc.Filtering;
 
 namespace GridMvc.Columns
 {
@@ -97,7 +96,6 @@ namespace GridMvc.Columns
         /// <param name="constraint">Member of generic class</param>
         /// <returns>Found column or NULL, if column not found</returns>
         IGridColumn<T> Get<TKey>(Expression<Func<T, TKey>> constraint);
-
     }
 
     public interface IGridColumnCollection : IEnumerable<IGridColumn>

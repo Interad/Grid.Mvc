@@ -60,16 +60,16 @@ namespace GridMvc.Html
         //support IHtmlString in RenderValueAs method
         public static IGridColumn<T> RenderValueAs<T>(this IGridColumn<T> column, Func<T, IHtmlString> constraint)
         {
-            Func<T, string> valueContraint = a => constraint(a).ToHtmlString();
-            return column.RenderValueAs(valueContraint);
+            Func<T, string> valueConstraint = a => constraint(a).ToHtmlString();
+            return column.RenderValueAs(valueConstraint);
         }
 
         //support WebPages inline helpers
         public static IGridColumn<T> RenderValueAs<T>(this IGridColumn<T> column,
                                                       Func<T, Func<object, HelperResult>> constraint)
         {
-            Func<T, string> valueContraint = a => constraint(a)(null).ToHtmlString();
-            return column.RenderValueAs(valueContraint);
+            Func<T, string> valueConstraint = a => constraint(a)(null).ToHtmlString();
+            return column.RenderValueAs(valueConstraint);
         }
 
         // Create a GridSelectList from any List

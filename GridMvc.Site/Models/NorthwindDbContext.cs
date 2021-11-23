@@ -4,7 +4,6 @@ namespace GridMvc.Site.Models
 {
     public class NorthwindDbContext : DbContext
     {
-
         public NorthwindDbContext()
             : base("ApplicationServices")
         {
@@ -20,6 +19,5 @@ namespace GridMvc.Site.Models
         //public DbSet<Shipper> Shippers { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Territory> Territories { get; set; }
-
     }
 }

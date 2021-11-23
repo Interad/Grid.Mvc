@@ -18,7 +18,7 @@ Follow these steps to start use Grid.mvc:
 
 
 2. Prepare your model in your controller, like:
-	
+
 	public ActionResult Index()
 	{
 		var items = fooRepository.GetAll();
@@ -42,13 +42,13 @@ Follow these steps to start use Grid.mvc:
 
 
 4. Register a grid stylesheet and scripts in your _Layouts.cshtml file:
-	
+
 	<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
 	<script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"> </script>
 
 
 Notes:
-	
+
 Default layout of Grid.Mvc uses Twitter Bootstrap (css framework). You also need to include stylesheets on your page. You can download it from - http://twitter.github.com/bootstrap/
 like:
 

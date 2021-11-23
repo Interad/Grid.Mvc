@@ -100,7 +100,7 @@
     <Compile Include="Columns\HiddenGridColumn.cs" />
     <Compile Include="Columns\IColumnBuilder.cs" />
     <Compile Include="Columns\IGridColumnCollection.cs" />
-    <Compile Include="DataAnnotations\GridAnnotaionsProvider.cs" />
+    <Compile Include="DataAnnotations\GridAnnotationsProvider.cs" />
     <Compile Include="DataAnnotations\GridTableAttribute.cs" />
     <Compile Include="DataAnnotations\GridColumnAttribute.cs" />
     <Compile Include="DataAnnotations\GridHiddenColumnAttribute.cs" />
@@ -138,7 +138,7 @@
     <Compile Include="Html\GridRenderOptions.cs" />
     <Compile Include="Html\HtmlGrid.cs" />
     <Compile Include="Html\IGridHtmlOptions.cs" />
-    <Compile Include="DataAnnotations\IGridAnnotaionsProvider.cs" />
+    <Compile Include="DataAnnotations\IGridAnnotationsProvider.cs" />
     <Compile Include="IGridColumnHeaderRenderer.cs" />
     <Compile Include="ISanitizer.cs" />
     <Compile Include="Pagination\GridPager.cs" />

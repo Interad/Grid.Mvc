@@ -15,7 +15,7 @@ namespace GridMvc.Utility
     /// </summary>
     internal static class PropertiesHelper
     {
-        private const string PropertiesQueryStringDelimeter = ".";
+        private const string PropertiesQueryStringDelimiter = ".";
 
         public static string BuildColumnNameFromMemberExpression(MemberExpression memberExpr)
         {
@@ -26,7 +26,7 @@ namespace GridMvc.Utility
                 string piece = GetExpressionMemberName(expr, ref expr);
                 if (string.IsNullOrEmpty(piece)) break;
                 if (sb.Length > 0)
-                    sb.Insert(0, PropertiesQueryStringDelimeter);
+                    sb.Insert(0, PropertiesQueryStringDelimiter);
                 sb.Insert(0, piece);
             }
             return sb.ToString();
@@ -51,11 +51,10 @@ namespace GridMvc.Utility
             return string.Empty;
         }
 
-
         public static PropertyInfo GetPropertyFromColumnName(string columnName, Type type,
                                                              out IEnumerable<PropertyInfo> propertyInfoSequence)
         {
-            string[] properies = columnName.Split(new[] {PropertiesQueryStringDelimeter},
+            string[] properies = columnName.Split(new[] {PropertiesQueryStringDelimiter},
                                                   StringSplitOptions.RemoveEmptyEntries);
             if (!properies.Any())
             {
@@ -64,9 +63,9 @@ namespace GridMvc.Utility
             }
             PropertyInfo pi = null;
             var sequence = new List<PropertyInfo>();
-            foreach (string properyName in properies)
+            foreach (string propertyName in properies)
             {
-                pi = type.GetProperty(properyName);
+                pi = type.GetProperty(propertyName);
                 if (pi == null)
                 {
                     propertyInfoSequence = null;

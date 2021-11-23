@@ -25,9 +25,9 @@ namespace GridMvc.Tests.Renderers
         {
             var renderer = new GridHeaderRenderer();
             var column = new GridColumn<TestModel, string>(c => c.Title, null);
-            var htmlstring = renderer.Render(column);
-            Assert.IsNotNull(htmlstring);
-            var html = htmlstring.ToHtmlString();
+            var htmlString = renderer.Render(column);
+            Assert.IsNotNull(htmlString);
+            var html = htmlString.ToHtmlString();
             Assert.IsTrue(!string.IsNullOrWhiteSpace(html));
             Assert.IsTrue(html.Contains("<th"));
             Assert.IsTrue(html.Contains("class=\"grid-header\""));
@@ -39,10 +39,10 @@ namespace GridMvc.Tests.Renderers
             var renderer = new GridCellRenderer();
             var column = new GridColumn<TestModel, string>(c => c.Title, null);
             var cell = new GridCell("test");
-            var htmlstring = renderer.Render(column, cell);
+            var htmlString = renderer.Render(column, cell);
 
-            Assert.IsNotNull(htmlstring);
-            var html = htmlstring.ToHtmlString();
+            Assert.IsNotNull(htmlString);
+            var html = htmlString.ToHtmlString();
             Assert.IsTrue(!string.IsNullOrWhiteSpace(html));
 
             Assert.IsTrue(html.Contains("<td"));
@@ -59,16 +59,16 @@ namespace GridMvc.Tests.Renderers
 
             var column = new GridColumn<TestModel, string>(c => c.Title, new TestGrid(Enumerable.Empty<TestModel>()));
 
-            var htmlstring = renderer.Render(column);
-            Assert.IsNotNull(htmlstring);
-            var html = htmlstring.ToHtmlString();
+            var htmlString = renderer.Render(column);
+            Assert.IsNotNull(htmlString);
+            var html = htmlString.ToHtmlString();
             Assert.IsTrue(string.IsNullOrEmpty(html));
 
             column.Filterable(true);
 
-            htmlstring = renderer.Render(column);
-            Assert.IsNotNull(htmlstring);
-            html = htmlstring.ToHtmlString();
+            htmlString = renderer.Render(column);
+            Assert.IsNotNull(htmlString);
+            html = htmlString.ToHtmlString();
 
             Assert.IsTrue(!string.IsNullOrWhiteSpace(html));
 
@@ -86,17 +86,17 @@ namespace GridMvc.Tests.Renderers
 
             var column = new GridColumn<TestModel, string>(c => c.Title, new TestGrid(Enumerable.Empty<TestModel>()));
 
-            var htmlstring = renderer.Render(column);
-            Assert.IsNotNull(htmlstring);
-            var html = htmlstring.ToHtmlString();
+            var htmlString = renderer.Render(column);
+            Assert.IsNotNull(htmlString);
+            var html = htmlString.ToHtmlString();
             Assert.IsTrue(!html.Contains("<a"));
             Assert.IsTrue(html.Contains("<span"));
 
             column.Sortable(true);
 
-            htmlstring = renderer.Render(column);
-            Assert.IsNotNull(htmlstring);
-            html = htmlstring.ToHtmlString();
+            htmlString = renderer.Render(column);
+            Assert.IsNotNull(htmlString);
+            html = htmlString.ToHtmlString();
 
             Assert.IsTrue(!string.IsNullOrWhiteSpace(html));
             Assert.IsTrue(html.Contains("<a"));

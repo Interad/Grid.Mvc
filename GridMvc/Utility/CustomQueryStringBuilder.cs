@@ -17,7 +17,6 @@ namespace GridMvc.Utility
         {
         }
 
-
         public override string ToString()
         {
             return GetQueryStringExcept(new string[0]);

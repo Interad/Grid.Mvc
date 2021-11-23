@@ -11,7 +11,6 @@ namespace GridMvc.Tests
 
         public TestModelChild[] List { get; set; }
 
-
         public Int16 Int16Field { get; set; }
         public UInt16 UInt16Field { get; set; }
         public UInt32 UInt32Field { get; set; }

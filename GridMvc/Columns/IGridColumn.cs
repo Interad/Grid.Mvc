@@ -48,7 +48,7 @@ namespace GridMvc.Columns
         IGridColumn<T> SetWidth(string width);
 
         /// <summary>
-        ///     Sets the width of the column in pizels
+        ///     Sets the width of the column in pixels
         /// </summary>
         IGridColumn<T> SetWidth(int width);
 
@@ -58,7 +58,7 @@ namespace GridMvc.Columns
         IGridColumn<T> Css(string cssClasses);
 
         /// <summary>
-        ///     Setup the custom rendere for property
+        ///     Setup the custom renderer for property
         /// </summary>
         IGridColumn<T> RenderValueAs(Func<T, string> constraint);
 
@@ -171,8 +171,8 @@ namespace GridMvc.Columns
         /// <summary>
         ///     Allows filtering for this column
         /// </summary>
-        /// <param name="enalbe">Enable/disable filtering</param>
-        IGridColumn<T> Filterable(bool enalbe);
+        /// <param name="enable">Enable/disable filtering</param>
+        IGridColumn<T> Filterable(bool enable);
 
         /// <summary>
         ///     Set up initial filter for this column

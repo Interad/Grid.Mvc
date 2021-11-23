@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -12,12 +11,9 @@ namespace GridMvc.Tests.Utility
     [TestClass]
     public class PropertiesHelperTests
     {
-
-
         [TestInitialize]
         public void Init()
         {
-
         }
 
         [TestMethod]
@@ -27,16 +23,14 @@ namespace GridMvc.Tests.Utility
 
             string name = PropertiesHelper.BuildColumnNameFromMemberExpression((MemberExpression)expr.Body);
             Assert.AreEqual(name, "Created");
-
         }
 
         [TestMethod]
-        public void TestColumnNameBuildingChilds()
+        public void TestColumnNameBuildingChildren()
         {
             Expression<Func<TestModel, string>> expr = m => m.Child.ChildTitle;
             string name = PropertiesHelper.BuildColumnNameFromMemberExpression((MemberExpression)expr.Body);
             Assert.AreEqual(name, "Child.ChildTitle");
-
         }
 
         [TestMethod]
@@ -50,7 +44,7 @@ namespace GridMvc.Tests.Utility
         }
 
         [TestMethod]
-        public void TestGetPropertyFromColumnNameChilds()
+        public void TestGetPropertyFromColumnNameChildren()
         {
             const string columnName = "Child.ChildTitle";
             IEnumerable<PropertyInfo> sequence;
@@ -58,8 +52,5 @@ namespace GridMvc.Tests.Utility
             Assert.AreEqual(sequence.Count(), 2);
             Assert.AreEqual(pi.Name, "ChildTitle");
         }
-
-
-
     }
 }

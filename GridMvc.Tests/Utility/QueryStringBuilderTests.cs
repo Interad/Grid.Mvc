@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using GridMvc.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,7 +12,6 @@ namespace GridMvc.Tests.Utility
         [TestInitialize]
         public void Init()
         {
-
         }
 
         [TestMethod]

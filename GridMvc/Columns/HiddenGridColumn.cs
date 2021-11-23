@@ -8,7 +8,7 @@ using GridMvc.Utility;
 namespace GridMvc.Columns
 {
     /// <summary>
-    ///     Колонка, которая выводит содержимое свойства модели
+    ///     The column that displays the contents of the model property
     /// </summary>
     public class HiddenGridColumn<T, TDataType> : GridColumnBase<T>
     {
@@ -122,19 +122,19 @@ namespace GridMvc.Columns
                 }
 
                 TDataType value = default(TDataType);
-                var nullReferece = false;
+                var nullReference = false;
                 try
                 {
                     value = _constraint(instance);
                 }
                 catch (NullReferenceException)
                 {
-                    nullReferece = true;
+                    nullReference = true;
                     // specified expression throws NullReferenceException
                     // example: x=>x.Child.Property, when Child is NULL
                 }
 
-                if (nullReferece || value == null)
+                if (nullReference || value == null)
                     textValue = string.Empty;
                 else if (!string.IsNullOrEmpty(ValuePattern))
                     textValue = string.Format(ValuePattern, value);
@@ -148,7 +148,7 @@ namespace GridMvc.Columns
             return new GridCell(textValue) { Encode = EncodeEnabled };
         }
 
-        public override IGridColumn<T> Filterable(bool showColumnValuesVariants)
+        public override IGridColumn<T> Filterable(bool enable)
         {
             return this;
         }

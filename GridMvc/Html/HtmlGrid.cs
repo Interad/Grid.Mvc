@@ -12,7 +12,6 @@ namespace GridMvc.Html
     {
         private readonly Grid<T> _source;
 
-
         public HtmlGrid(Grid<T> source, ViewContext viewContext, string viewName)
             : base(source, viewContext, viewName)
         {

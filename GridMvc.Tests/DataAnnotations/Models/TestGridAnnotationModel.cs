@@ -3,13 +3,11 @@ using GridMvc.DataAnnotations;
 
 namespace GridMvc.Tests.DataAnnotations.Models
 {
-
     [MetadataType(typeof(TestGridAnnotationMetadata))]
     internal class TestGridAnnotationModel
     {
         [GridColumn]
         public string Name { get; set; }
-
 
         public int Count { get; set; }
 

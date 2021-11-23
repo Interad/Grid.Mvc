@@ -49,7 +49,5 @@ namespace GridMvc.Tests.Pagination
 
             Assert.AreEqual(_pager.PageCount, _pager.CurrentPage);
         }
-
-
     }
 }

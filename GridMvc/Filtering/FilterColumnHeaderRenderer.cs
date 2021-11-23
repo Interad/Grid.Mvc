@@ -31,7 +31,6 @@ namespace GridMvc.Filtering
             if (!column.FilterEnabled)
                 return MvcHtmlString.Create(string.Empty);
 
-
             //determine current column filter settings
             var filterSettings = new List<ColumnFilterValue>();
             if (_settings.IsInitState && column.InitialFilterSettings != ColumnFilterValue.Null)

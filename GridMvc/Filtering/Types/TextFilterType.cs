@@ -35,28 +35,28 @@ namespace GridMvc.Filtering.Types
 
         public override Expression GetFilterExpression(Expression leftExpr, string value, GridFilterType filterType)
         {
-            //Custom implementation of string filter type. Case insensitive compartion.
+            //Custom implementation of string filter type. Case insensitive comparison.
 
             filterType = GetValidType(filterType);
             object typedValue = GetTypedValue(value);
             if (typedValue == null)
-                return null; //incorrent filter value;
+                return null; //incorrect filter value;
 
             Expression valueExpr = Expression.Constant(typedValue);
             Expression binaryExpression;
             switch (filterType)
             {
                 case GridFilterType.Equals:
-                    binaryExpression = GetCaseInsensitiveСompartion(string.Empty, leftExpr, valueExpr);
+                    binaryExpression = GetCaseInsensitiveComparison(string.Empty, leftExpr, valueExpr);
                     break;
                 case GridFilterType.Contains:
-                    binaryExpression = GetCaseInsensitiveСompartion("Contains", leftExpr, valueExpr);
+                    binaryExpression = GetCaseInsensitiveComparison("Contains", leftExpr, valueExpr);
                     break;
                 case GridFilterType.StartsWith:
-                    binaryExpression = GetCaseInsensitiveСompartion("StartsWith", leftExpr, valueExpr);
+                    binaryExpression = GetCaseInsensitiveComparison("StartsWith", leftExpr, valueExpr);
                     break;
                 case GridFilterType.EndsWidth:
-                    binaryExpression = GetCaseInsensitiveСompartion("EndsWith", leftExpr, valueExpr);
+                    binaryExpression = GetCaseInsensitiveComparison("EndsWith", leftExpr, valueExpr);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -64,10 +64,10 @@ namespace GridMvc.Filtering.Types
             return binaryExpression;
         }
 
-        private Expression GetCaseInsensitiveСompartion(string methodName, Expression leftExpr, Expression rightExpr)
+        private Expression GetCaseInsensitiveComparison(string methodName, Expression leftExpr, Expression rightExpr)
         {
             Type targetType = TargetType;
-            //case insensitive compartion:
+            //case insensitive comparison:
             MethodInfo miUpper = targetType.GetMethod("ToUpper", new Type[] {});
             MethodCallExpression upperValueExpr = Expression.Call(rightExpr, miUpper);
             MethodCallExpression upperFirstExpr = Expression.Call(leftExpr, miUpper);
