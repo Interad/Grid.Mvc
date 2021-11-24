@@ -58,13 +58,13 @@ namespace GridMvc.Core.Html
             return htmlGrid;
         }
 
-        
+
 
         //support IHtmlString in RenderValueAs method
         public static IGridColumn<T> RenderValueAs<T>(this IGridColumn<T> column, Func<T, HtmlString> constraint)
         {
-            Func<T, string> valueContraint = a => constraint(a).Value;
-            return column.RenderValueAs(valueContraint);
+            Func<T, string> valueConstraint = a => constraint(a).Value;
+            return column.RenderValueAs(valueConstraint);
         }
 
         //support WebPages inline helpers
@@ -73,8 +73,8 @@ namespace GridMvc.Core.Html
         public static IGridColumn<T> RenderValueAs<T>(this IGridColumn<T> column,
                                                       Func<T, Func<object, HelperResult>> constraint)
         {
-            Func<T, string> valueContraint = a => constraint(a)(null).ToHtmlString();
-            return column.RenderValueAs(valueContraint);
+            Func<T, string> valueConstraint = a => constraint(a)(null).ToHtmlString();
+            return column.RenderValueAs(valueConstraint);
         }*/
     }
 }

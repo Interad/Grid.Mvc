@@ -76,7 +76,7 @@ namespace GridMvc.Core.Html
         /// <summary>
         ///     Setup specific row css classes
         /// </summary>
-        IGridHtmlOptions<T> SetRowCssClasses(Func<T, string> contraint);
+        IGridHtmlOptions<T> SetRowCssClasses(Func<T, string> constraint);
 
         /// <summary>
         ///     Specify Grid client name
@@ -97,18 +97,13 @@ namespace GridMvc.Core.Html
         /// <summary>
         ///    Allow grid to show Grid items count
         /// </summary>
-        IGridHtmlOptions<T> WithGridItemsCount(string gridItemsName);
-
-        /// <summary>
-        ///    Allow grid to show Grid items count
-        /// </summary>
-        IGridHtmlOptions<T> WithGridItemsCount();
+        IGridHtmlOptions<T> WithGridItemsCount(string formatString = null);
 
         /// <summary>
         ///     Obviously render Grid markup
         /// </summary>
         /// <returns>Grid html layout</returns>
-        /// 
+        ///
         //IGridHtmlOptions<T> SetupDetailsSource();
 
         IDetailsControl<T> DetailsControl { get; set; }

@@ -11,7 +11,7 @@ namespace GridMvc.Core.Filtering
     public class QueryStringFilterSettings : IGridFilterSettings
     {
         public const string DefaultTypeQueryParameter = "grid-filter";
-        private const string FilterDataDelimeter = "__";
+        private const string FilterDataDelimiter = "__";
         public const string DefaultFilterInitQueryParameter = "gridinit";
         public readonly HttpContext Context;
         private readonly DefaultFilterColumnCollection _filterValues = new DefaultFilterColumnCollection();
@@ -49,7 +49,7 @@ namespace GridMvc.Core.Filtering
             if (string.IsNullOrEmpty(queryParameterValue))
                 return ColumnFilterValue.Null;
 
-            string[] data = queryParameterValue.Split(new[] {FilterDataDelimeter}, StringSplitOptions.RemoveEmptyEntries);
+            string[] data = queryParameterValue.Split(new[] {FilterDataDelimiter}, StringSplitOptions.RemoveEmptyEntries);
             if (data.Length != 3)
                 return ColumnFilterValue.Null;
             GridFilterType type;

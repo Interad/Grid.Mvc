@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Runtime.Serialization;
 
 namespace GridMvc.Core.Filtering
@@ -7,7 +8,7 @@ namespace GridMvc.Core.Filtering
     ///     Structure that specifies filter settings for each column
     /// </summary>
     [DataContract]
-    public struct ColumnFilterValue
+    public struct ColumnFilterValue : IEquatable<ColumnFilterValue>
     {
         //[DataMember(Name = "columnName")]
         public string ColumnName;
@@ -27,6 +28,11 @@ namespace GridMvc.Core.Filtering
         public static ColumnFilterValue Null
         {
             get { return default(ColumnFilterValue); }
+        }
+
+        public bool Equals(ColumnFilterValue other)
+        {
+            return ColumnName == other.ColumnName && FilterType == other.FilterType && FilterValue == other.FilterValue;
         }
 
         public override bool Equals(object obj)

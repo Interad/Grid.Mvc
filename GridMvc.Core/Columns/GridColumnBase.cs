@@ -114,7 +114,7 @@ namespace GridMvc.Core.Columns
 
         public ColumnFilterValue InitialFilterSettings { get; set; }
 
-        public abstract IGridColumn<T> Filterable(bool showColumnValuesVariants);
+        public abstract IGridColumn<T> Filterable(bool enable);
 
         public abstract IGridColumn<T> SetFilterWidgetType(string typeName);
         public abstract IGridColumn<T> SetFilterWidgetType(string typeName, object widgetData);

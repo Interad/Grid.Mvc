@@ -1,7 +1,7 @@
 ﻿namespace GridMvc.Core
 {
     /// <summary>
-    ///     Renders the hiiden cells of the hidden columns
+    ///     Renders the hidden cells of the hidden columns
     /// </summary>
     internal class GridHiddenHeaderRenderer : GridHeaderRenderer
     {

@@ -46,6 +46,16 @@ namespace GridMvc.Core.Html
             set { _source.GridCssClass = value; }
         }
 
+        public string RenderGridCount()
+        {
+            if (string.IsNullOrWhiteSpace(RenderOptions.GridCountFormatString))
+            {
+                return string.Empty;
+            }
+
+            return string.Format(RenderOptions.GridCountFormatString, ((IGrid)this).ItemsCount);
+        }
+
         IEnumerable<object> IGrid.ItemsToDisplay
         {
             get { return (_source as IGrid).ItemsToDisplay; }
@@ -72,7 +82,7 @@ namespace GridMvc.Core.Html
             get { return _source.EnablePaging; }
         }
 
-   
+
 
         string IGrid.EmptyGridText
         {

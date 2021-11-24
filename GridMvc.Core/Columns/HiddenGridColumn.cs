@@ -8,7 +8,7 @@ using GridMvc.Core.Utility;
 namespace GridMvc.Core.Columns
 {
     /// <summary>
-    ///     Колонка, которая выводит содержимое свойства модели
+    ///     The column that displays the contents of the model property
     /// </summary>
     public class HiddenGridColumn<T, TDataType> : GridColumnBase<T>
     {
@@ -148,7 +148,7 @@ namespace GridMvc.Core.Columns
             return new GridCell(textValue) { Encode = EncodeEnabled };
         }
 
-        public override IGridColumn<T> Filterable(bool showColumnValuesVariants)
+        public override IGridColumn<T> Filterable(bool enable)
         {
             return this;
         }

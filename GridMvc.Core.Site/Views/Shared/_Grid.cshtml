@@ -84,15 +84,25 @@ else
 
     public IHtmlContent RenderGridPager()
     {
-
-        if (!(Model.EnablePaging && Model.Pager != null))
+        if (!Model.RenderOptions.ShowGridItemsCount && (!Model.EnablePaging || Model.Pager == null))
             return new HtmlString("");
 
         TagBuilder tb = new TagBuilder("div");
         tb.Attributes.Add("class", "grid-footer");
-        tb.InnerHtml.AppendHtml(Html.PartialAsync(Model.Pager.TemplateName, Model.Pager).Result);
+
+        if (Model.RenderOptions.ShowGridItemsCount)
+        {
+            TagBuilder tb2 = new TagBuilder("div");
+            tb2.Attributes.Add("class", "grid-itemscount");
+            tb2.InnerHtml.Append(Model.RenderGridCount());
+            tb.InnerHtml.AppendHtml(tb2);
+        }
+
+        if (Model.EnablePaging && Model.Pager != null)
+        {
+            tb.InnerHtml.AppendHtml(Html.PartialAsync(Model.Pager.TemplateName, Model.Pager).Result);
+        }
 
         return tb;
-
     }
 }

@@ -56,17 +56,11 @@ namespace GridMvc.Core.Html
             return DetailsControl.RenderDetailsControl((T)parent);
         }
 
-        
         //this method is outdated
         /*public string ToHtmlString()
         {
             return RenderPartialViewToString(GridViewName, this, _viewContext);
         }*/
-
-        public IGridHtmlOptions<T> WithGridItemsCount()
-        {
-            return WithGridItemsCount(string.Empty);
-        }
 
         //this code is outdated
         //Modified by LM
@@ -164,9 +158,9 @@ namespace GridMvc.Core.Html
             _source.GridCssClass = className;
             return this;
         }
-        public IGridHtmlOptions<T> SetRowCssClasses(Func<T, string> contraint)
+        public IGridHtmlOptions<T> SetRowCssClasses(Func<T, string> constraint)
         {
-            _source.SetRowCssClassesContraint(contraint);
+            _source.SetRowCssClassesConstraint(constraint);
             return this;
         }
 
@@ -193,16 +187,20 @@ namespace GridMvc.Core.Html
         }
 
         /// <summary>
-        ///     Set to true if we want to show grid itmes count
-        ///     - Author - Jeeva J
+        ///     Shows a grid items count
         /// </summary>
-        public IGridHtmlOptions<T> WithGridItemsCount(string gridItemsName)
+        /// <param name="formatString">A format string for the items count, defaults to "Items count: {0}"</param>
+        public IGridHtmlOptions<T> WithGridItemsCount(string formatString = null)
         {
-            if (string.IsNullOrWhiteSpace(gridItemsName))
-                gridItemsName = "Items count";
+            if (string.IsNullOrWhiteSpace(formatString))
+                formatString = "Items count: {0}";
 
-            _source.RenderOptions.GridCountDisplayName = gridItemsName;
+            // For legacy compatibility
+            if (!formatString.Contains("{0}"))
+                formatString += ": {0}";
+
             _source.RenderOptions.ShowGridItemsCount = true;
+            _source.RenderOptions.GridCountFormatString = formatString;
             return this;
         }
 

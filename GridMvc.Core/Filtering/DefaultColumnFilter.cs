@@ -64,7 +64,7 @@ namespace GridMvc.Core.Filtering
             }
             else if (isNullable)
             {
-                //add additional filter condition for check items on NULL with invoring "HasValue" method.
+                //add additional filter condition for check items on NULL with invoking "HasValue" method.
                 //for example: result of this expression will like - c=> c.HasValue && c.Value = 3
                 MemberExpression hasValueExpr = Expression.Property(_expression.Body,
                                                                     pi.PropertyType.GetProperty("HasValue"));

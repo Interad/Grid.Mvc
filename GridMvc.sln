@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridMvc.ExportableGrid", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridMvc.Core.ExportableGrid", "GridMvc.Core.ExportableGrid\GridMvc.Core.ExportableGrid.csproj", "{2BA5B631-8B7A-44F1-8BF9-4CDC962DB6E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridMvc.Core.Tests", "GridMvc.Core.Tests\GridMvc.Core.Tests.csproj", "{7A00D996-A358-47D5-8E8C-43CAAC06DE25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{2BA5B631-8B7A-44F1-8BF9-4CDC962DB6E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BA5B631-8B7A-44F1-8BF9-4CDC962DB6E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BA5B631-8B7A-44F1-8BF9-4CDC962DB6E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A00D996-A358-47D5-8E8C-43CAAC06DE25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A00D996-A358-47D5-8E8C-43CAAC06DE25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A00D996-A358-47D5-8E8C-43CAAC06DE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A00D996-A358-47D5-8E8C-43CAAC06DE25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +98,7 @@ Global
 		{B628C574-7B9D-45A8-BCBC-11CD7C86C6D5} = {568BF746-A10C-411F-8F17-72E3DE51E583}
 		{DC41998F-6098-4F32-BDE3-94948D31B5A4} = {90888ABF-D2D6-4BF1-BFF9-E049981523CA}
 		{2BA5B631-8B7A-44F1-8BF9-4CDC962DB6E3} = {568BF746-A10C-411F-8F17-72E3DE51E583}
+		{7A00D996-A358-47D5-8E8C-43CAAC06DE25} = {568BF746-A10C-411F-8F17-72E3DE51E583}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2BC53051-718B-4D5B-9E52-128D65D82F27}

@@ -35,12 +35,12 @@ namespace GridMvc.Core.Filtering.Types
 
         public override Expression GetFilterExpression(Expression leftExpr, string value, GridFilterType filterType)
         {
-            //Custom implementation of string filter type. Case insensitive compartion.
+            //Custom implementation of string filter type. Case insensitive comparison.
 
             filterType = GetValidType(filterType);
             object typedValue = GetTypedValue(value);
             if (typedValue == null)
-                return null; //incorrent filter value;
+                return null; //incorrect filter value;
 
             Expression valueExpr = Expression.Constant(typedValue);
             Expression binaryExpression;
