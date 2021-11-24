@@ -75,8 +75,7 @@ namespace GridMvc.Html
         }
 
         /// <summary>
-        ///     To show Grid Items count
-        ///     - Author by Jeeva
+        ///     The grid items total count
         /// </summary>
         int IGrid.ItemsCount
         {
@@ -86,6 +85,19 @@ namespace GridMvc.Html
         IGridSettingsProvider IGrid.Settings
         {
             get { return _source.Settings; }
+        }
+
+        /// <summary>
+        ///     Render the grid items count
+        /// </summary>
+        string IGrid.RenderGridCount()
+        {
+            if (string.IsNullOrWhiteSpace(RenderOptions.GridCountFormatString))
+            {
+                return string.Empty;
+            }
+
+            return string.Format(RenderOptions.GridCountFormatString, ((IGrid)this).ItemsCount);
         }
     }
 }

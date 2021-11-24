@@ -62,8 +62,7 @@ else
             @if (Model.RenderOptions.ShowGridItemsCount)
             {
                 <div class="grid-itemscount">
-                    <span class="grid-itemscount-label">@Model.RenderOptions.GridCountDisplayName:</span>
-                    <span class="grid-itemscount-caption">@Model.ItemsCount</span>
+                    @Model.RenderGridCount()
                 </div>
             }
             @if (Model.EnablePaging && Model.Pager != null)

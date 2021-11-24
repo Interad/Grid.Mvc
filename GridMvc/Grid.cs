@@ -213,5 +213,18 @@ namespace GridMvc
                     Columns.Add(pi);
             }
         }
+
+        /// <summary>
+        ///     Render the grid items count
+        /// </summary>
+        public string RenderGridCount()
+        {
+            if (string.IsNullOrWhiteSpace(RenderOptions.GridCountFormatString))
+            {
+                return string.Empty;
+            }
+
+            return string.Format(RenderOptions.GridCountFormatString, ItemsCount);
+        }
     }
 }

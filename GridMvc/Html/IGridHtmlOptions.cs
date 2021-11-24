@@ -91,14 +91,9 @@ namespace GridMvc.Html
         IGridHtmlOptions<T> WithMultipleFilters();
 
         /// <summary>
-        ///    Allow grid to show Grid items count
+        ///    Show grid items count
         /// </summary>
-        IGridHtmlOptions<T> WithGridItemsCount(string gridItemsName);
-
-        /// <summary>
-        ///    Allow grid to show Grid items count
-        /// </summary>
-        IGridHtmlOptions<T> WithGridItemsCount();
+        IGridHtmlOptions<T> WithGridItemsCount(string formatString = null);
 
         /// <summary>
         ///     Obviously render Grid markup

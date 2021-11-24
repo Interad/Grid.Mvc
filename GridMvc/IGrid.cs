@@ -72,6 +72,11 @@ namespace GridMvc
         /// </summary>
         string GetRowCssClasses(object item);
 
+        /// <summary>
+        ///     Render the grid items count
+        /// </summary>
+        string RenderGridCount();
+
         //void OnPreRender(); //TODO backward Compatibility
     }
 }

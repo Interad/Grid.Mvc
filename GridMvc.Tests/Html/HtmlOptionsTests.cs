@@ -38,6 +38,16 @@ namespace GridMvc.Tests.Html
 
             _opt.Selectable(true);
             Assert.IsTrue(_grid.RenderOptions.Selectable);
+
+            _opt.WithGridItemsCount();
+            Assert.IsTrue(_grid.RenderOptions.ShowGridItemsCount);
+            Assert.AreEqual("Items count: {0}", _grid.RenderOptions.GridCountFormatString);
+            Assert.AreEqual("Items count: 0", _grid.RenderGridCount());
+
+            _opt.WithGridItemsCount("{0} in total");
+            Assert.IsTrue(_grid.RenderOptions.ShowGridItemsCount);
+            Assert.AreEqual("{0} in total", _grid.RenderOptions.GridCountFormatString);
+            Assert.AreEqual("0 in total", _grid.RenderGridCount());
         }
     }
 }

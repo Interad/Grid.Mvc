@@ -1,4 +1,6 @@
-﻿namespace GridMvc.Html
+﻿using System;
+
+namespace GridMvc.Html
 {
     public class GridRenderOptions
     {
@@ -41,16 +43,26 @@
         public bool RenderRowsOnly { get; set; }
 
         /// <summary>
-        ///     Does items count need to show
-        ///     - Author Jeeva J
+        ///     Specify to show a grid items count
         /// </summary>
         public bool ShowGridItemsCount { get; set; }
 
         /// <summary>
         ///     To show string while show grid items count
-        ///     - Author Jeeva J
         /// </summary>
-        public string GridCountDisplayName { get; set; }
+        [Obsolete("Use GridCountFormatString or IGrid.RenderGridCount() instead.")]
+        public string GridCountDisplayName
+        {
+            get => GridCountFormatString;
+            set => GridCountFormatString = value + ": {0}";
+        }
+
+        /// <summary>
+        ///     Format the grid items count display string using a format string.<br/>
+        ///     There is one positional parameter {0} where the actual count is displayed.<br/>
+        ///     Default is "Items count: {0}"
+        /// </summary>
+        public string GridCountFormatString { get; set; }
 
         public static GridRenderOptions Create(string gridName)
         {
