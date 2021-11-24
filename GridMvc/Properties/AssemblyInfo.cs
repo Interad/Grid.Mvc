@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Interad.Grid.Mvc")]
 [assembly: AssemblyDescription("ASP.NET MVC Grid component")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Interad Software GmbH")]
 [assembly: AssemblyProduct("Interad.Grid.Mvc")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]

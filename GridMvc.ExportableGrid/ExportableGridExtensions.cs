@@ -1,8 +1,7 @@
 ﻿using GridMvc.Html;
-using GridMvc.Utility.ExportableGrid;
 using System.Web.Mvc;
 
-namespace GridMvc.ExportableGrid
+namespace GridMvc.Utility.ExportableGrid
 {
     public static class ExportableGridExtensions
     {

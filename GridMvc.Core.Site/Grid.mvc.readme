@@ -1,0 +1,64 @@
+﻿http://gridmvc.codeplex.com/
+
+Note: Grid.Mvc.Core installer has already made the following changes to your project:
+- Views/Shared/_Grid.cshtml, Views/Shared/_GridPager.cshtml - views for grid
+- wwwroot/css/Gridmvc.css - default stylesheet for the grid
+- wwwroot/js/gridmvc.js - Grid.Mvc scripts
+- Reference GridMvc.Core.dll
+
+Follow these steps to start use Grid.mvc:
+
+1. Define a model for display in the grid, like:
+
+    public class Foo
+    {
+        public string Title { get; set; }
+        public string Description { get;set; }
+    }
+
+
+2. Prepare your model in your controller, like:
+
+    public ActionResult Index()
+    {
+        var items = fooRepository.GetAll();
+        return View(items);
+    }
+
+
+3. Render GridMvc in the View: You can use Html helper extenstion:
+
+    Reference Grid.Mvc.Core.Html in your view:
+
+        @using GridMvc.Core.Html
+
+    Render Grid.Mvc:
+
+        @Html.Grid(Model).Columns(columns =>
+                        {
+                            columns.Add(foo => foo.Title).Titled("Custom column title").SetWidth(110);
+                            columns.Add(foo => foo.Description).Sortable(true);
+                        }).WithPaging(20)
+
+
+4. Register a grid stylesheet and scripts in your _Layouts.cshtml file:
+
+    <link rel="stylesheet" href="~/css/Gridmvc.css" />
+    <script src="~/js/gridmvc.js"></script>
+
+
+Notes:
+
+Default layout of Grid.Mvc.Core uses Twitter Bootstrap 3 (css framework).
+You also need to include stylesheets on your page. You can download it from - http://twitter.github.com/bootstrap/ like:
+
+    <link rel="stylesheet" href="@Url.Content("~/lib/bootstrap/css/bootstrap.min.css")" />
+
+
+Also you need to ensure that jQuery has registred on the page before gridmvc.js script.
+
+Exportable Grids for seamless XLS-Export of HTML Grids:
+ - Instead of Configuring the Grid in the View Configure it on the Server:
+ - var exportGrid = new ExportableGrid<Order>("t", new List<Order>()).WithColumnConfiguration(columns => columns.Add(x => x.Customer))
+ - afterwards you can export your grid as XLS: exportGrid.AsWorkBook()
+ - to use it in the view, use the regular Grid Helper: Html.Grid(exportGrid)
