@@ -19,7 +19,7 @@ namespace GridMvc.Core
         private bool _itemsPreProcessed; //is preprocessors launched?
         private bool _itemsProcessed; //is processors launched?
 
-        private Func<T, string> _rowCssClassesContraint;
+        private Func<T, string> _rowCssClassesConstraint;
 
         protected GridBase(IQueryable<T> items)
         {
@@ -74,19 +74,19 @@ namespace GridMvc.Core
         }
 
         #region Custom row css classes
-        public void SetRowCssClassesContraint(Func<T, string> contraint)
+        public void SetRowCssClassesConstraint(Func<T, string> constraint)
         {
-            _rowCssClassesContraint = contraint;
+            _rowCssClassesConstraint = constraint;
         }
 
         public string GetRowCssClasses(object item)
         {
-            if (_rowCssClassesContraint == null)
+            if (_rowCssClassesConstraint == null)
                 return string.Empty;
             var typed = item as T;
             if (typed == null)
                 throw new InvalidCastException(string.Format("The item must be of type '{0}'", typeof(T).FullName));
-            return _rowCssClassesContraint(typed);
+            return _rowCssClassesConstraint(typed);
         }
 
         #endregion

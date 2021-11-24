@@ -76,7 +76,8 @@ namespace GridMvc.Core
 
         string GridCssClass { get; set; }
 
-        //void OnPreRender(); //TODO backward Compatibility
+        string RenderGridCount();
 
+        //void OnPreRender(); //TODO backward Compatibility
     }
 }

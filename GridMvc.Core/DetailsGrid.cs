@@ -11,17 +11,17 @@ namespace GridMvc.Core
                                                          
 
     {
-        private System.Func<TKey, IEnumerable<TValue>> DetailsDataSource;
+        private Func<TKey, IEnumerable<TValue>> DetailsDataSource;
 
         public DetailsGrid(Func<TKey, IEnumerable<TValue>> sourceFunc, HttpContext context) :base(null, context)
         {
-            this.DetailsDataSource = sourceFunc;
+            DetailsDataSource = sourceFunc;
         }
 
         public void RetreiveDataByKey(TKey key)
         {
             EnsureLastData();
-            BeforeItems = this.DetailsDataSource(key).AsQueryable();
+            BeforeItems = DetailsDataSource(key).AsQueryable();
         }
 
         public bool IsDetailsGrid {

@@ -11,7 +11,7 @@ namespace GridMvc.Core.DataAnnotations
         {
             pi = GetMetadataProperty<T>(pi);
 
-            var gridAttr = pi.GetAttribute<GridColumnAttribute>();
+            var gridAttr = pi.GetCustomAttribute<GridColumnAttribute>();
 
             GridColumnAttribute dataAnnotationAttr = gridAttr;
 
@@ -42,7 +42,7 @@ namespace GridMvc.Core.DataAnnotations
         {
             pi = GetMetadataProperty<T>(pi);
 
-            var gridAttr = pi.GetAttribute<GridHiddenColumnAttribute>();
+            var gridAttr = pi.GetCustomAttribute<GridHiddenColumnAttribute>();
             if (gridAttr != null) return gridAttr;
 
             GridHiddenColumnAttribute dataAnnotationAttr = null;
@@ -61,24 +61,24 @@ namespace GridMvc.Core.DataAnnotations
 
         public bool IsColumnMapped(PropertyInfo pi)
         {
-            return pi.GetAttribute<NotMappedColumnAttribute>() == null;
+            return pi.GetCustomAttribute<NotMappedColumnAttribute>() == null;
         }
 
         public GridTableAttribute GetAnnotationForTable<T>()
         {
-            var modelType = typeof(T).GetAttribute<ModelMetadataTypeAttribute>();
+            var modelType = typeof(T).GetCustomAttribute<ModelMetadataTypeAttribute>();
             if (modelType != null)
             {
-                var metadataAttr = modelType.MetadataType.GetAttribute<GridTableAttribute>();
+                var metadataAttr = modelType.MetadataType.GetCustomAttribute<GridTableAttribute>();
                 if (metadataAttr != null)
                     return metadataAttr;
             }
-            return typeof(T).GetAttribute<GridTableAttribute>();
+            return typeof(T).GetCustomAttribute<GridTableAttribute>();
         }
 
         private PropertyInfo GetMetadataProperty<T>(PropertyInfo pi)
         {
-            var modelType = typeof(T).GetAttribute<ModelMetadataTypeAttribute>();
+            var modelType = typeof(T).GetCustomAttribute<ModelMetadataTypeAttribute>();
             if (modelType != null)
             {
                 PropertyInfo metadataProperty = modelType.MetadataType.GetProperty(pi.Name);
@@ -91,14 +91,14 @@ namespace GridMvc.Core.DataAnnotations
         private DataAnnotationsOptions ExtractDataAnnotations(PropertyInfo pi)
         {
             DataAnnotationsOptions result = null;
-            var displayAttr = pi.GetAttribute<DisplayAttribute>();
+            var displayAttr = pi.GetCustomAttribute<DisplayAttribute>();
             if (displayAttr != null)
             {
                 result = new DataAnnotationsOptions();
                 result.DisplayName = displayAttr.GetName();
                 result.FilterEnabled = displayAttr.GetAutoGenerateFilter();
             }
-            var displayFormatAttr = pi.GetAttribute<DisplayFormatAttribute>();
+            var displayFormatAttr = pi.GetCustomAttribute<DisplayFormatAttribute>();
             if (displayFormatAttr != null)
             {
                 if (result == null) result = new DataAnnotationsOptions();

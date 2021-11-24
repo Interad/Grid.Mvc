@@ -22,14 +22,14 @@ namespace GridMvc.Core.Html
             SourceGrid.RetreiveDataByKey(parent);
             using (System.IO.StringWriter sw = new System.IO.StringWriter())
             {
-                this.WriteTo(sw, System.Text.Encodings.Web.HtmlEncoder.Default);
+                WriteTo(sw, System.Text.Encodings.Web.HtmlEncoder.Default);
                 return new HtmlString(sw.ToString());
             }
         }
 
         protected DetailsGrid<TKey, TValue> SourceGrid
         {
-            get { return (DetailsGrid<TKey, TValue>)this._source; }
+            get { return (DetailsGrid<TKey, TValue>)_source; }
         }
     }
 }

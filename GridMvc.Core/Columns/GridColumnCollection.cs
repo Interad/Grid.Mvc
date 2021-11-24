@@ -10,7 +10,7 @@ using GridMvc.Core.Utility;
 namespace GridMvc.Core.Columns
 {
     /// <summary>
-    ///     Collection of collumns
+    ///     Collection of columns
     /// </summary>
     public class GridColumnCollection<T> : KeyedCollection<string, IGridColumn>, IGridColumnCollection<T>
     {

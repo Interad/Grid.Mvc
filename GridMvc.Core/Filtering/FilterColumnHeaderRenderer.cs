@@ -74,7 +74,7 @@ namespace GridMvc.Core.Filtering
                     {"data-url", url}
                 };
 
-            gridFilter.InnerHtml.SetHtmlContent(gridFilterButton.ToString());
+            gridFilter.InnerHtml.SetHtmlContent(gridFilterButton.ToHtmlString());
 
             gridFilter.AddCssClass("grid-filter");
             foreach (var data in dataKeyList)
@@ -83,7 +83,7 @@ namespace GridMvc.Core.Filtering
                     gridFilter.Attributes.Add(data.Key, data.Value);
             }
 
-            return new HtmlString(gridFilter.ToString());
+            return new HtmlString(gridFilter.ToHtmlString());
         }
 
         #endregion

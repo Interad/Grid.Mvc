@@ -46,10 +46,10 @@ namespace GridMvc.Core.Pagination
         //int ItemsCount { get; set; }
 
         ///// <summary>
-        /////     Получить адрес для конкретной страницы
+        /////     Get the address for a specific page
         ///// </summary>
-        ///// <param name="pageIndex">Номер страницы</param>
-        ///// <returns>Адрес страницы</returns>
+        ///// <param name="pageIndex">Page number</param>
+        ///// <returns>Page address</returns>
         //string GetLinkForPage(int pageIndex);
     }
 }

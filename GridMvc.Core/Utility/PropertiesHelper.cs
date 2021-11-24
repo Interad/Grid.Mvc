@@ -13,7 +13,7 @@ namespace GridMvc.Core.Utility
     /// </summary>
     internal static class PropertiesHelper
     {
-        private const string PropertiesQueryStringDelimeter = ".";
+        private const string PropertiesQueryStringDelimiter = ".";
 
         public static string BuildColumnNameFromMemberExpression(MemberExpression memberExpr)
         {
@@ -24,7 +24,7 @@ namespace GridMvc.Core.Utility
                 string piece = GetExpressionMemberName(expr, ref expr);
                 if (string.IsNullOrEmpty(piece)) break;
                 if (sb.Length > 0)
-                    sb.Insert(0, PropertiesQueryStringDelimeter);
+                    sb.Insert(0, PropertiesQueryStringDelimiter);
                 sb.Insert(0, piece);
             }
             return sb.ToString();
@@ -52,7 +52,7 @@ namespace GridMvc.Core.Utility
         public static PropertyInfo GetPropertyFromColumnName(string columnName, Type type,
                                                              out IEnumerable<PropertyInfo> propertyInfoSequence)
         {
-            string[] properies = columnName.Split(new[] {PropertiesQueryStringDelimeter},
+            string[] properies = columnName.Split(new[] {PropertiesQueryStringDelimiter},
                                                   StringSplitOptions.RemoveEmptyEntries);
             if (!properies.Any())
             {
@@ -61,9 +61,9 @@ namespace GridMvc.Core.Utility
             }
             PropertyInfo pi = null;
             var sequence = new List<PropertyInfo>();
-            foreach (string properyName in properies)
+            foreach (string propertyName in properies)
             {
-                pi = type.GetProperty(properyName);
+                pi = type.GetProperty(propertyName);
                 if (pi == null)
                 {
                     propertyInfoSequence = null;
@@ -93,12 +93,11 @@ namespace GridMvc.Core.Utility
         public static T GetAttribute<T>(this PropertyInfo pi) where T : Attribute
         {
             return pi.PropertyType.GetTypeInfo().GetCustomAttributes<T>().FirstOrDefault();
-                ///.GetCustomAttributes<T>().FirstOrDefault();//.GetCustomAttributes(typeof (T), true).FirstOrDefault();
         }
 
         public static T GetAttribute<T>(this Type type) where T : Attribute
         {
-            return (T)type.GetTypeInfo().GetCustomAttributes<T>(true).FirstOrDefault();
+            return type.GetTypeInfo().GetCustomAttributes<T>(true).FirstOrDefault();
         }
     }
 }
