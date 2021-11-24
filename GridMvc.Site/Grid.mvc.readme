@@ -49,16 +49,14 @@ Follow these steps to start use Grid.mvc:
 
 Notes:
 
-Default layout of Grid.Mvc uses Twitter Bootstrap (css framework). You also need to include stylesheets on your page. You can download it from - http://twitter.github.com/bootstrap/
-like:
+Default layout of Grid.Mvc uses Twitter Bootstrap 3 (css framework).
+You also need to include stylesheets on your page.
+You can download it from - http://twitter.github.com/bootstrap/ like:
 
 	<link href="@Url.Content("~/Content/Css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
 
 
 Also you need to ensure that jQuery has registred on the page before gridmvc.min.js script.
-
-For more documetation, please see: http://gridmvc.codeplex.com/
-
 
 
 Exportable Grids for seamless XLS-Export of HTML Grids:

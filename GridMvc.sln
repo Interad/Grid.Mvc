@@ -6,16 +6,21 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{284B3A26-84E0-4203-8E70-20275107A16D}"
 	ProjectSection(SolutionItems) = preProject
 		GridMvc.vsmdi = GridMvc.vsmdi
+		interad-logo.png = interad-logo.png
+		LICENSE.md = LICENSE.md
 		Local.testsettings = Local.testsettings
+		README.md = README.md
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F05C1E26-F067-4F6C-AC05-52B6F4C3A2E8}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\build.bat = .nuget\build.bat
+		.nuget\Grid.Mvc.Core.nuspec = .nuget\Grid.Mvc.Core.nuspec
 		.nuget\Grid.Mvc.nuspec = .nuget\Grid.Mvc.nuspec
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\web.config.core.transform = .nuget\web.config.core.transform
 		.nuget\web.config.transform = .nuget\web.config.transform
 	EndProjectSection
 EndProject
@@ -24,6 +29,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridMvc.Tests", "GridMvc.Tests\GridMvc.Tests.csproj", "{4F128BFC-B7B8-4842-AE9F-D706DC8D819E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridMvc.Site", "GridMvc.Site\GridMvc.Site.csproj", "{7EF1A034-8CC8-4A29-B9FF-1398EE9E5036}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GridMvc.Net48", "GridMvc.Net48", "{90888ABF-D2D6-4BF1-BFF9-E049981523CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GridMvc.Core", "GridMvc.Core", "{568BF746-A10C-411F-8F17-72E3DE51E583}"
+	ProjectSection(SolutionItems) = preProject
+		README.Core.md = README.Core.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GridMvc.Core", "GridMvc.Core\GridMvc.Core.csproj", "{30F34F99-76D4-47C8-B09A-9DCF6BA96DE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GridMvc.Core.Site", "GridMvc.Core.Site\GridMvc.Core.Site.csproj", "{B628C574-7B9D-45A8-BCBC-11CD7C86C6D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,9 +59,24 @@ Global
 		{7EF1A034-8CC8-4A29-B9FF-1398EE9E5036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EF1A034-8CC8-4A29-B9FF-1398EE9E5036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EF1A034-8CC8-4A29-B9FF-1398EE9E5036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30F34F99-76D4-47C8-B09A-9DCF6BA96DE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F34F99-76D4-47C8-B09A-9DCF6BA96DE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F34F99-76D4-47C8-B09A-9DCF6BA96DE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F34F99-76D4-47C8-B09A-9DCF6BA96DE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B628C574-7B9D-45A8-BCBC-11CD7C86C6D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B628C574-7B9D-45A8-BCBC-11CD7C86C6D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B628C574-7B9D-45A8-BCBC-11CD7C86C6D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B628C574-7B9D-45A8-BCBC-11CD7C86C6D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{742CA5DD-16DB-464A-A267-A1F4E422733B} = {90888ABF-D2D6-4BF1-BFF9-E049981523CA}
+		{4F128BFC-B7B8-4842-AE9F-D706DC8D819E} = {90888ABF-D2D6-4BF1-BFF9-E049981523CA}
+		{7EF1A034-8CC8-4A29-B9FF-1398EE9E5036} = {90888ABF-D2D6-4BF1-BFF9-E049981523CA}
+		{30F34F99-76D4-47C8-B09A-9DCF6BA96DE6} = {568BF746-A10C-411F-8F17-72E3DE51E583}
+		{B628C574-7B9D-45A8-BCBC-11CD7C86C6D5} = {568BF746-A10C-411F-8F17-72E3DE51E583}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2BC53051-718B-4D5B-9E52-128D65D82F27}

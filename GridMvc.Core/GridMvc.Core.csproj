@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>Grid.Mvc.Core</PackageId>
+    <Authors>David Prem</Authors>
+    <Company>Interad Software GmbH</Company>
+    <Product>Grid.Mvc.Core</Product>
+    <Description>GridMVC ported to ASP.NET Core</Description>
+    <PackageProjectUrl>https://github.com/Interad/Grid.Mvc</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Interad-The-NET-Experts/Grid.Mvc/master/interad-logo.png</PackageIconUrl>
+    <PackageTags>MVC Grid ASP.NET Core</PackageTags>
+    <RepositoryUrl>https://github.com/Interad/Grid.Mvc</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+</Project>

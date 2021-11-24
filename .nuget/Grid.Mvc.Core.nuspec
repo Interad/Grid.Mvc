@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Interad.Grid.Mvc.Core</id>
+    <version>3.2.0</version>
+    <title>Interad.Grid.Mvc.Core</title>
+    <authors>Interad - The .NET Experts</authors>
+    <licenseUrl>https://github.com/Interad-The-NET-Experts/Grid.Mvc/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/Interad-The-NET-Experts/Grid.Mvc</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Interad-The-NET-Experts/Grid.Mvc/master/interad-logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package provides functionality to build GridView based on your model items collection. Grid.Mvc.Core supports sorting, filtering and paging your data.</description>
+    <tags>ASP.NETCore MVC Control GridView</tags>
+  </metadata>
+  <files>
+    <file src="..\GridMvc.Core\bin\Release\netcoreapp3.1\GridMvc.Core.dll" target="lib\netcore" />
+    <file src="..\GridMvc.Core.Site\Views\Shared\_Grid.cshtml" target="Content\Views\Shared" />
+    <file src="..\GridMvc.Core.Site\Views\Shared\_GridPager.cshtml" target="Content\Views\Shared" />
+    <file src="..\GridMvc.Core.Site\wwwroot\css\Gridmvc.css" target="Content\wwwroot\css\Gridmvc.css" />
+    <file src="..\GridMvc.Core.Site\wwwroot\js\gridmvc.js" target="Content\wwwroot\js\gridmvc.js" />
+    <file src="..\GridMvc.Core.Site\wwwroot\js\gridmvc.min.js" target="Content\wwwroot\js\gridmvc.min.js" />
+    <file src="..\GridMvc.Core.Site\Grid.mvc.readme" target="Content\Grid.mvc.readme" />
+    <file src="web.config.core.transform" target="Content\web.config.transform" />
+  </files>
+</package>

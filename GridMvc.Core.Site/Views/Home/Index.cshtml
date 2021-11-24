@@ -1,0 +1,11 @@
+﻿@model IEnumerable<GridMvc.Core.Site.Models.MonthReportModel>
+@using GridMvc.Core.Html
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@Html.Grid(Model).Columns(c=>
+{
+    c.Add(col => col.Month).Titled("Month");
+    c.Add(col => col.Amount).Titled("Amount").Format("{0:C}");
+})
