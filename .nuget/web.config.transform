@@ -4,6 +4,6 @@
       <namespaces>
         <add namespace ="GridMvc" />
       </namespaces>
-    </pages>  
+    </pages>
   </system.web>
 </configuration>
