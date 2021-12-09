@@ -21,8 +21,20 @@ namespace GridMvc.Columns
         IGridColumn<T> CreateColumn<TDataType>(Expression<Func<T, TDataType>> expression, bool hidden);
 
         /// <summary>
+        ///     Creates column based on column expression
+        /// </summary>
+        /// <param name="expression">Column expression</param>
+        /// <param name="hidden">Is column hidden</param>
+        IGridColumn<T> CreateJsonValueColumn<TDataType>(Expression<Func<T, TDataType>> expression, string propertyName, bool hidden);
+
+        /// <summary>
         ///     Creates column from property info using reflection
         /// </summary>
         IGridColumn<T> CreateColumn(PropertyInfo pi);
+
+        /// <summary>
+        ///     Creates column from property info using reflection
+        /// </summary>
+        IGridColumn<T> CreateJsonValueColumn(PropertyInfo pi, string propertyName);
     }
 }
