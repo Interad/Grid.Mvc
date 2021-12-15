@@ -190,7 +190,6 @@
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Sanitizer.cs" />
-    <Compile Include="Sorting\OrderByJsonGridOrderer.cs" />
     <Compile Include="Sorting\OrderByGridOrderer.cs" />
     <Compile Include="Sorting\IColumnOrderer.cs" />
     <Compile Include="Sorting\ThenByColumnOrderer.cs" />
