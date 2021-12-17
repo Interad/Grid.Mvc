@@ -15,7 +15,7 @@ namespace GridMvc.Columns
         /// <summary>
         ///     Expression to member, used for this column
         /// </summary>
-        private readonly Func<T, TDataType> _constraint;
+        private readonly Func<T, string> _constraint;
 
         /// <summary>
         ///     Filters and orderers collection for this columns
@@ -34,7 +34,7 @@ namespace GridMvc.Columns
         private string _filterWidgetTypeName;
         private IGridColumnHeaderRenderer _headerRenderer;
 
-        public JsonGridColumn(Expression<Func<T, TDataType>> expression, string propertyName, Grid<T> grid)
+        public JsonGridColumn(Expression<Func<T, string>> expression, string propertyName, Grid<T> grid)
         {
             #region Setup defaults
 
@@ -57,7 +57,7 @@ namespace GridMvc.Columns
                         "expression");
 
                 _constraint = expression.Compile();
-                _orderers.Insert(0, new OrderByGridOrderer<T, TDataType>(expression));
+                _orderers.Insert(0, new OrderByGridOrderer<T, string>(expression));
                 _filter = new JsonValueFilter<T, TDataType>(expression, propertyName);
                 //Generate unique column name:
                 Name = PropertiesHelper.BuildColumnNameFromMemberExpression(expr);
@@ -172,7 +172,7 @@ namespace GridMvc.Columns
                     throw new InvalidOperationException("You need to specify render expression using RenderValueAs");
                 }
 
-                TDataType value = default(TDataType);
+                string value = default(string);
 
                 var nullReference = false;
                 try

@@ -25,7 +25,7 @@ namespace GridMvc.Columns
         /// </summary>
         /// <param name="expression">Column expression</param>
         /// <param name="hidden">Is column hidden</param>
-        IGridColumn<T> CreateJsonValueColumn<TDataType>(Expression<Func<T, TDataType>> expression, string propertyName, bool hidden);
+        IGridColumn<T> CreateJsonValueColumn<TDataType>(Expression<Func<T, string>> expression, string propertyName, bool hidden);
 
         /// <summary>
         ///     Creates column from property info using reflection
@@ -35,6 +35,6 @@ namespace GridMvc.Columns
         /// <summary>
         ///     Creates column from property info using reflection
         /// </summary>
-        IGridColumn<T> CreateJsonValueColumn(PropertyInfo pi, string propertyName);
+        IGridColumn<T> CreateJsonValueColumn<TDataType>(PropertyInfo pi, string propertyName);
     }
 }

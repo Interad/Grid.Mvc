@@ -12,6 +12,20 @@ namespace GridMvc.Utility
             // todo: implement filter for in memory data
             throw new NotSupportedException();
         }
+
+        [DbFunction("CodeFirstDatabaseSchema", "ToDateTime2")]
+        public static DateTime ToDateTime2(string value, string format)
+        {
+            // todo: implement filter for in memory data
+            throw new NotSupportedException();
+        }
+
+        [DbFunction("CodeFirstDatabaseSchema", "ToDecimal")]
+        public static decimal ToDecimal(string value)
+        {
+            // todo: implement filter for in memory data
+            throw new NotSupportedException();
+        }
     }
 
 }

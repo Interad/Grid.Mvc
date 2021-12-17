@@ -62,7 +62,7 @@ namespace GridMvc.Columns
         /// <param name="constraint">Member of generic class</param>
         /// <param name="propertyName">Name of required member within json column</param>
         /// <returns>Added column</returns>
-        IGridColumn<T> AddJsonColumn<TKey>(Expression<Func<T, TKey>> constraint, string propertyName);
+        IGridColumn<T> AddJsonColumn<TDataType>(Expression<Func<T, string>> constraint, string propertyName);
 
         /// <summary>
         ///     Add new column to the grid
@@ -71,7 +71,7 @@ namespace GridMvc.Columns
         /// <param name="propertyName">Name of required member within json column</param>
         /// <param name="columnName">Specify column internal static name, used for sorting and filtering</param>
         /// <returns>Added column</returns>
-        IGridColumn<T> AddJsonColumn<TKey>(Expression<Func<T, TKey>> constraint, string propertyName, string columnName);
+        IGridColumn<T> AddJsonColumn<TDataType>(Expression<Func<T, string>> constraint, string propertyName, string columnName);
 
         /// <summary>
         ///     Add new column to the grid
@@ -80,14 +80,14 @@ namespace GridMvc.Columns
         /// <param name="propertyName">Name of required member within json column</param>
         /// <param name="hidden">Hidden column not display in grid, but you can get values from client side</param>
         /// <returns>Added column</returns>
-        IGridColumn<T> AddJsonColumn<TKey>(Expression<Func<T, TKey>> constraint, string propertyName, bool hidden);
+        IGridColumn<T> AddJsonColumn<TDataType>(Expression<Func<T, string>> constraint, string propertyName, bool hidden);
 
         /// <summary>
         ///     Add new column based on property info, using reflection - get json value from content of column
         /// </summary>
         /// <param name="propertyName">Name of required member within json column</param>
         /// <returns>Added column</returns>
-        IGridColumn<T> AddJsonColumn(PropertyInfo pi, string propertyName);
+        IGridColumn<T> AddJsonColumn<TDataType>(PropertyInfo pi, string propertyName);
 
         /// <summary>
         ///     Add new column to the grid

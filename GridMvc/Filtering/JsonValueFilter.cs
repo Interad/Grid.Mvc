@@ -7,13 +7,13 @@ using System.Reflection;
 
 namespace GridMvc.Filtering
 {
-    public class JsonValueFilter<T, TData> : IColumnFilter<T>
+    public class JsonValueFilter<T, TDataType> : IColumnFilter<T>
     {
-        private readonly Expression<Func<T, TData>> _expression;
+        private readonly Expression<Func<T, string>> _expression;
         private readonly FilterTypeResolver _typeResolver = new FilterTypeResolver();
         private readonly string _propertyName;
 
-        public JsonValueFilter(Expression<Func<T, TData>> expression, string propertyName)
+        public JsonValueFilter(Expression<Func<T, string>> expression, string propertyName)
         {
             _expression = expression;
             _propertyName = propertyName;
@@ -37,26 +37,27 @@ namespace GridMvc.Filtering
 
         private Expression<Func<T, bool>> GetFilterExpression(PropertyInfo pi, ColumnFilterValue value)
         {
+            var type = typeof(TDataType);
+
             //detect nullable
             bool isNullable = pi.PropertyType.IsGenericType &&
                               pi.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
             //get target type:
             Type targetType = isNullable ? Nullable.GetUnderlyingType(pi.PropertyType) : pi.PropertyType;
 
-            IFilterType filterType = (IFilterType)new JsonFilterType();
+            IFilterType filterType = _typeResolver.GetFilterType(type);
 
             //build expression to filter collection:
             ParameterExpression entityParam = _expression.Parameters[0];
             //support nullable types:
-            Expression firstExpr = isNullable
-                                       ? Expression.Property(_expression.Body, pi.PropertyType.GetProperty("Value"))
-                                       : _expression.Body;
+            Expression firstExpr = _expression.Body;
             
             // call DBFunction for JSON_VALUE
             MethodInfo methodInfoJsonValue = typeof(CustomFunction).GetMethod("JsonValue", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
             Expression jsonValueExpression = Expression.Call(methodInfoJsonValue, firstExpr, Expression.Constant($"$.{value.ColumnName}"));
+            Expression convertedValue = GetConvertToTypeExpression(filterType.TargetType, jsonValueExpression);
 
-            Expression binaryExpression = filterType.GetFilterExpression(jsonValueExpression, value.FilterValue, value.FilterType);
+            Expression binaryExpression = filterType.GetFilterExpression(convertedValue, value.FilterValue, value.FilterType);
             if (binaryExpression == null)
                 return null;
 
@@ -77,6 +78,34 @@ namespace GridMvc.Filtering
             }
             //return filter expression
             return Expression.Lambda<Func<T, bool>>(binaryExpression, entityParam);
+        }
+
+        private Expression GetConvertToTypeExpression(Type targetType, Expression leftSide)
+        {
+            if (targetType == typeof(decimal))
+            {
+                return GetConvertToDecimal(leftSide);
+            }
+            else if (targetType == typeof(DateTime))
+            {
+                return GetConvertToDateTimeExpression(leftSide);
+            }
+
+            return leftSide;
+        }
+
+        private Expression GetConvertToDateTimeExpression(Expression leftSide)
+        {
+            MethodInfo methodInfoToDateTime = typeof(CustomFunction).GetMethod("ToDateTime2", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+            Expression convertedValue = Expression.Call(methodInfoToDateTime, leftSide, Expression.Constant("yyyy-MM-dd HH:mm:ss"));
+            return convertedValue;
+        }
+
+        private Expression GetConvertToDecimal(Expression leftSide)
+        {
+            MethodInfo methodInfoToDateTime = typeof(CustomFunction).GetMethod("ToDecimal", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+            Expression convertedValue = Expression.Call(methodInfoToDateTime, leftSide);
+            return convertedValue;
         }
     }
 }

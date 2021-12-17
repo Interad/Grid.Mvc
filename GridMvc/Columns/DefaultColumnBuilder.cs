@@ -66,19 +66,19 @@ namespace GridMvc.Columns
             return column;
         }
 
-        public IGridColumn<T> CreateJsonValueColumn<TDataType>(Expression<Func<T, TDataType>> constraint, string propertyName, bool hidden)
+        public IGridColumn<T> CreateJsonValueColumn<TDataType>(Expression<Func<T, string>> constraint, string propertyName, bool hidden)
         {
             bool isExpressionOk = constraint == null || constraint.Body as MemberExpression != null;
             if (isExpressionOk)
             {
                 if (!hidden)
                     return new JsonGridColumn<T, TDataType>(constraint, propertyName, _grid);
-                return new HiddenGridColumn<T, TDataType>(constraint, _grid);
+                return new HiddenGridColumn<T, string>(constraint, _grid);
             }
             throw new NotSupportedException(string.Format("Expression '{0}' not supported by grid", constraint));
         }
 
-        public IGridColumn<T> CreateJsonValueColumn(PropertyInfo pi, string propertyName)
+        public IGridColumn<T> CreateJsonValueColumn<TDataType>(PropertyInfo pi, string propertyName)
         {
             if (!_annotations.IsColumnMapped(pi))
                 return null; //grid column not mapped
@@ -87,7 +87,7 @@ namespace GridMvc.Columns
             GridColumnAttribute columnOpt = _annotations.GetAnnotationForColumn<T>(pi);
             if (columnOpt != null)
             {
-                column = CreateJsonValueColumn(pi, propertyName, false);
+                column = CreateJsonValueColumn<TDataType>(pi, propertyName, false);
                 ApplyColumnAnnotationSettings(column, columnOpt);
             }
             else
@@ -95,12 +95,12 @@ namespace GridMvc.Columns
                 GridHiddenColumnAttribute columnHiddenOpt = _annotations.GetAnnotationForHiddenColumn<T>(pi);
                 if (columnHiddenOpt != null)
                 {
-                    column = CreateJsonValueColumn(pi, propertyName, true);
+                    column = CreateJsonValueColumn<TDataType>(pi, propertyName, true);
                     ApplyHiddenColumnAnnotationSettings(column, columnHiddenOpt);
                 }
                 else
                 {
-                    column = CreateJsonValueColumn(pi, propertyName, false);
+                    column = CreateJsonValueColumn<TDataType>(pi, propertyName, false);
                     ApplyColumnAnnotationSettings(column, new GridColumnAttribute());
                 }
             }
@@ -139,7 +139,7 @@ namespace GridMvc.Columns
             return column;
         }
 
-        private IGridColumn<T> CreateJsonValueColumn(PropertyInfo pi, string jsonPropertyName, bool hidden)
+        private IGridColumn<T> CreateJsonValueColumn<TDataType>(PropertyInfo pi, string jsonPropertyName, bool hidden)
         {
             Type entityType = typeof(T);
             Type columnType;
@@ -193,10 +193,6 @@ namespace GridMvc.Columns
             column.Encoded(options.EncodeEnabled).Sanitized(options.SanitizeEnabled);
             if (!string.IsNullOrEmpty(options.Format))
                 column.Format(options.Format);
-        }
-        public IGridColumn<T> CreateJsonValueColumn<TDataType>(Expression<Func<T, string>> expression, string propertyName, bool hidden)
-        {
-            throw new NotImplementedException();
         }
     }
 }
