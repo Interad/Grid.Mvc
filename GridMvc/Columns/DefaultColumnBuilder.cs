@@ -66,6 +66,47 @@ namespace GridMvc.Columns
             return column;
         }
 
+        public IGridColumn<T> CreateJsonValueColumn<TDataType>(Expression<Func<T, string>> constraint, string propertyName, bool hidden)
+        {
+            bool isExpressionOk = constraint == null || constraint.Body as MemberExpression != null;
+            if (isExpressionOk)
+            {
+                if (!hidden)
+                    return new JsonGridColumn<T, TDataType>(constraint, propertyName, _grid);
+                return new HiddenGridColumn<T, string>(constraint, _grid);
+            }
+            throw new NotSupportedException(string.Format("Expression '{0}' not supported by grid", constraint));
+        }
+
+        public IGridColumn<T> CreateJsonValueColumn<TDataType>(PropertyInfo pi, string propertyName)
+        {
+            if (!_annotations.IsColumnMapped(pi))
+                return null; //grid column not mapped
+
+            IGridColumn<T> column;
+            GridColumnAttribute columnOpt = _annotations.GetAnnotationForColumn<T>(pi);
+            if (columnOpt != null)
+            {
+                column = CreateJsonValueColumn<TDataType>(pi, propertyName, false);
+                ApplyColumnAnnotationSettings(column, columnOpt);
+            }
+            else
+            {
+                GridHiddenColumnAttribute columnHiddenOpt = _annotations.GetAnnotationForHiddenColumn<T>(pi);
+                if (columnHiddenOpt != null)
+                {
+                    column = CreateJsonValueColumn<TDataType>(pi, propertyName, true);
+                    ApplyHiddenColumnAnnotationSettings(column, columnHiddenOpt);
+                }
+                else
+                {
+                    column = CreateJsonValueColumn<TDataType>(pi, propertyName, false);
+                    ApplyColumnAnnotationSettings(column, new GridColumnAttribute());
+                }
+            }
+            return column;
+        }
+
         public bool DefaultSortEnabled { get; set; }
         public bool DefaultFilteringEnabled { get; set; }
 
@@ -90,6 +131,33 @@ namespace GridMvc.Columns
             LambdaExpression lambda = Expression.Lambda(funcType, expressionProperty, parameter);
 
             var column = Activator.CreateInstance(columnType, lambda, _grid) as IGridColumn<T>;
+            if (!hidden && column != null)
+            {
+                column.Sortable(DefaultSortEnabled);
+                column.Filterable(DefaultFilteringEnabled);
+            }
+            return column;
+        }
+
+        private IGridColumn<T> CreateJsonValueColumn<TDataType>(PropertyInfo pi, string jsonPropertyName, bool hidden)
+        {
+            Type entityType = typeof(T);
+            Type columnType;
+
+            if (!hidden)
+                columnType = typeof(JsonGridColumn<,>).MakeGenericType(entityType, pi.PropertyType);
+            else
+                columnType = typeof(HiddenGridColumn<,>).MakeGenericType(entityType, pi.PropertyType);
+
+            //Build expression
+
+            ParameterExpression parameter = Expression.Parameter(entityType, "e");
+            MemberExpression expressionProperty = Expression.Property(parameter, pi);
+
+            Type funcType = typeof(Func<,>).MakeGenericType(entityType, pi.PropertyType);
+            LambdaExpression lambda = Expression.Lambda(funcType, expressionProperty, parameter);
+
+            var column = Activator.CreateInstance(columnType, lambda, jsonPropertyName, _grid) as IGridColumn<T>;
             if (!hidden && column != null)
             {
                 column.Sortable(DefaultSortEnabled);
