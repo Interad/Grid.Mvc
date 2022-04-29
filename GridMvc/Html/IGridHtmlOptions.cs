@@ -96,6 +96,16 @@ namespace GridMvc.Html
         IGridHtmlOptions<T> WithGridItemsCount(string formatString = null);
 
         /// <summary>
+        ///     Display active filter in table header
+        /// </summary>
+        IGridHtmlOptions<T> DisplayActiveFilter();
+
+        /// <summary>
+        ///    Display active filter in table header
+        /// </summary>
+        IGridHtmlOptions<T> DisplayActiveFilter(bool enable);
+
+        /// <summary>
         ///     Obviously render Grid markup
         /// </summary>
         /// <returns>Grid html layout</returns>

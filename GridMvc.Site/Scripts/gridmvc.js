@@ -11,7 +11,7 @@ $.fn.extend({
         var aObj = [];
         $(this).each(function () {
             if (!$(this).data("gridmvc")) {
-                var options = { lang: $(this).attr("data-lang"), selectable: $(this).attr("data-selectable") == "true", multiplefilters: $(this).attr("data-multiplefilters") == "true" };
+                var options = { lang: $(this).attr("data-lang"), selectable: $(this).attr("data-selectable") == "true", multiplefilters: $(this).attr("data-multiplefilters") == "true", displayactivefilters: $(this).attr("data-displayactivefilters") };
                 var grid = new GridMvc(this, options);
                 var name = $(this).attr("data-gridname");
                 if (name.length > 0)
@@ -100,7 +100,8 @@ GridMvc = (function ($) {
         return {
             selectable: true,
             multiplefilters: false,
-            lang: 'en'
+            lang: 'en',
+            displayactivefilters: false
         };
     };
     /***
@@ -133,10 +134,39 @@ GridMvc = (function ($) {
         var filterHtml = this.filterMenuHtml();
         var self = this;
         this.jqContainer.find(".grid-filter").each(function () {
+            if (self.options.displayactivefilters) {
+                self.showCurrentFilterValues.call(this, self);
+            }
+
             $(this).click(function () {
                 return self.openFilterPopup.call(this, self, filterHtml);
             });
         });
+    };
+    /***
+    * Shows current filter value below title
+    */
+    gridMvc.prototype.showCurrentFilterValues = function (self) {
+        //retrive all column filter parameters from html attrs:
+        var columnType = $(this).attr("data-type") || "";
+        //determine widget
+        var widget = self.getFilterWidgetForType(columnType);
+        //if widget for specified column type not found - do nothing
+        if (widget == null)
+            return false;
+
+        var filterData = $(this).attr("data-filterdata") || "";
+        var widgetData = $(this).attr("data-widgetdata") || "{}";
+        var filterDataObj = self.parseFilterValues(filterData) || {};
+
+        if (!filterDataObj)
+            return false
+
+        var currentFilterAsText = widget.getCurrentFilterAsText(filterDataObj, $.parseJSON(widgetData), self.lang);
+        var filterData = $(this).data('filterdata');
+        if (filterData && filterData.length > 0 && currentFilterAsText) {
+            $(this).siblings('.grid-header-title').append('<div class="filter-data-text">' + currentFilterAsText + '</div>');
+        }
     };
     /***
     * Shows filter popup window and render filter widget
@@ -448,9 +478,13 @@ TextFilterWidget = (function ($) {
         this.cb = cb;
         this.container = container;
         this.lang = lang;
-        this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
+        this.value = this.prepareFilter(values);
         this.renderWidget();
         this.registerEvents();
+    };
+
+    textFilterWidget.prototype.prepareFilter = function (values) {
+        return values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
     };
     /***
     * Internal method that build widget layout and append it to the widget container
@@ -498,6 +532,26 @@ TextFilterWidget = (function ($) {
             if (event.keyCode == 27) { GridMvc.closeOpenedPopups(); }
         });
     };
+    /***
+    * Internal method that returns current filter as human readable text
+    */
+    textFilterWidget.prototype.getCurrentFilterAsText = function (values, data, lang) {
+        value = this.prepareFilter(values);
+        if (!value.filterValue)
+            return "";
+
+        var filterText = "";
+        if (value.filterType == "1")
+            filterText += lang.filterSelectTypes.Equals;
+        if (value.filterType == "2")
+            filterText += lang.filterSelectTypes.Contains;
+        if (value.filterType == "3")
+            filterText += lang.filterSelectTypes.StartsWith;
+        if (value.filterType == "4")
+            filterText += lang.filterSelectTypes.EndsWith;
+
+        return `${filterText} "${value.filterValue}"`;
+    };
 
     return textFilterWidget;
 })(window.jQuery);
@@ -519,7 +573,7 @@ NumberFilterWidget = (function ($) {
 
     numberFilterWidget.prototype.onShow = function () {
         var textBox = this.container.find(".grid-filter-input");
-        if (textBox.length <= 0) return; 
+        if (textBox.length <= 0) return;
         textBox.focus();
     };
 
@@ -528,9 +582,13 @@ NumberFilterWidget = (function ($) {
         this.container = container;
         this.lang = lang;
         this.typeName = typeName;
-        this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
+        this.value = this.prepareFilter(values);
         this.renderWidget();
         this.registerEvents();
+    };
+
+    numberFilterWidget.prototype.prepareFilter = function (values) {
+        return values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
     };
 
     numberFilterWidget.prototype.renderWidget = function () {
@@ -592,6 +650,24 @@ NumberFilterWidget = (function ($) {
             if ($event.preventDefault) $event.preventDefault();
         }
     };
+    /***
+    * Internal method that returns current filter as human readable text
+    */
+    numberFilterWidget.prototype.getCurrentFilterAsText = function (values, data, lang) {
+        var value = this.prepareFilter(values);
+        if (!value.filterValue)
+            return "";
+
+        var filterText = "";
+        if (value.filterType == "1")
+            filterText += lang.filterSelectTypes.Equals;
+        if (value.filterType == "5")
+            filterText += lang.filterSelectTypes.GreaterThan;
+        if (value.filterType == "6")
+            filterText += lang.filterSelectTypes.LessThan;
+
+        return `${filterText} "${value.filterValue}"`;
+    };
 
     return numberFilterWidget;
 })(window.jQuery);
@@ -616,9 +692,13 @@ DateTimeFilterWidget = (function ($) {
         this.typeName = typeName;
         this.container = container;
         this.lang = lang;
-        this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
+        this.value = this.prepareFilter(values);
         this.renderWidget();
         this.registerEvents();
+    };
+
+    dateTimeFilterWidget.prototype.prepareFilter = function (values) {
+        return values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
     };
 
     dateTimeFilterWidget.prototype.renderWidget = function () {
@@ -630,10 +710,10 @@ DateTimeFilterWidget = (function ($) {
                             <option value="6" ' + (this.value.filterType == "6" ? "selected=\"selected\"" : "") + '>' + this.lang.filterSelectTypes.LessThan + '</option>\
                         </select>\
                     </div>' +
-                        (this.datePickerIncluded ?
-                            '<div class="grid-filter-datepicker"></div>'
-                            :
-                            '<div class="form-group">\
+            (this.datePickerIncluded ?
+                '<div class="grid-filter-datepicker"></div>'
+                :
+                '<div class="form-group">\
                                 <label>' + this.lang.filterValueLabel + '</label>\
                                 <input type="text" class="grid-filter-input form-control" value="' + this.value.filterValue + '" />\
                              </div>\
@@ -657,7 +737,7 @@ DateTimeFilterWidget = (function ($) {
                 //    var filterValues = [{ filterType: type, filterValue: ev.format() }];
                 //}
                 //else{
-                    var filterValues = [{ filterType: type, filterValue: ev.format() }];
+                var filterValues = [{ filterType: type, filterValue: ev.format() }];
                 //}
                 $context.cb(filterValues);
             });
@@ -681,6 +761,24 @@ DateTimeFilterWidget = (function ($) {
             }
         });
     };
+    /***
+    * Internal method that returns current filter as human readable text
+    */
+    dateTimeFilterWidget.prototype.getCurrentFilterAsText = function (values, data, lang) {
+        var value = this.prepareFilter(values);
+        if (!value.filterValue)
+            return "";
+
+        var filterText = "";
+        if (value.filterType == "1")
+            filterText += lang.filterSelectTypes.Equals;
+        if (value.filterType == "5")
+            filterText += lang.filterSelectTypes.GreaterThan;
+        if (value.filterType == "6")
+            filterText += lang.filterSelectTypes.LessThan;
+
+        return `${filterText} "${value.filterValue}"`;
+    };
 
     return dateTimeFilterWidget;
 })(window.jQuery);
@@ -701,9 +799,13 @@ BooleanFilterWidget = (function ($) {
         this.cb = cb;
         this.container = container;
         this.lang = lang;
-        this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
+        this.value = this.prepareFilter(values);
         this.renderWidget();
         this.registerEvents();
+    };
+
+    booleanFilterWidget.prototype.prepareFilter = function (values) {
+        return values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
     };
 
     booleanFilterWidget.prototype.renderWidget = function () {
@@ -715,13 +817,30 @@ BooleanFilterWidget = (function ($) {
         this.container.append(html);
     };
 
-    booleanFilterWidget.prototype.registerEvents = function () { 
+    booleanFilterWidget.prototype.registerEvents = function () {
         var $context = this;
         var applyBtn = this.container.find(".grid-filter-choose");
         applyBtn.click(function () {
             var filterValues = [{ filterType: "1", filterValue: $(this).attr("data-value") }];
             $context.cb(filterValues);
         });
+    };
+
+    /***
+    * Internal method that returns current filter as human readable text
+    */
+    booleanFilterWidget.prototype.getCurrentFilterAsText = function (values, data, lang) {
+        var value = this.prepareFilter(values);
+        if (!value.filterValue)
+            return "";
+
+        var filterText = "";
+        if (value.filterValue == "true")
+            filterText += lang.boolTrueLabel;
+        if (value.filterType == "false")
+            filterText += lang.boolFalseLabel;
+
+        return filterText;
     };
 
     return booleanFilterWidget;
@@ -762,9 +881,13 @@ QueryFilterWidget = (function ($) {
         this.cb = cb;
         this.container = container;
         this.lang = lang;
-        this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
+        this.value = this.prepareFilter(values);
         this.renderWidget();
         this.registerEvents();
+    };
+
+    queryFilterWidget.prototype.prepareFilter = function (values) {
+        return values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };//support only one filter value
     };
     /***
     * Internal method that build widget layout and append it to the widget container
@@ -801,11 +924,18 @@ QueryFilterWidget = (function ($) {
             if (event.keyCode == 27) { GridMvc.closeOpenedPopups(); }
         });
     };
+    /***
+    * Internal method that returns current filter as human readable text
+    */
+    queryFilterWidget.prototype.getCurrentFilterAsText = function (values, data, lang) {
+        var value = this.prepareFilter(values);
+        return value.filterValue;
+    };
 
     return queryFilterWidget;
 })(window.jQuery);
 
-SelectListFilterWidget = (function($) {
+SelectListFilterWidget = (function ($) {
     function selectListWidget() {
         selectListWidget.prototype.getAssociatedTypes = function () {
             return ["SelectListWidget"];
@@ -837,9 +967,13 @@ SelectListFilterWidget = (function($) {
             this.items = data;
 
             //this filterwidget demo supports only 1 filter value for column column
-            this.value = values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };
+            this.value = this.prepareFilter(values);
             this.renderWidget(); //onRender filter widget
             this.registerEvents(); //handle events
+        };
+
+        selectListWidget.prototype.prepareFilter = function (values) {
+            return values.length > 0 ? values[0] : { filterType: 1, filterValue: "" };
         };
 
         selectListWidget.prototype.renderWidget = function () {
@@ -852,7 +986,7 @@ SelectListFilterWidget = (function($) {
             }
 
             html += '</select>' +
-                    '</div>';
+                '</div>';
 
             html += '<div class="grid-filter-buttons">\
                         <button type="button" class="btn btn-primary grid-apply">' + this.lang.applyFilterButtonText + '</button>\
@@ -869,6 +1003,15 @@ SelectListFilterWidget = (function($) {
                 var values = [{ filterValue: $context.container.find('.enums-list').val(), filterType: 1 /* Equals */ }];
                 $context.cb(values);
             });
+        };
+
+        /***
+        * Internal method that returns current filter as human readable text
+        */
+        selectListWidget.prototype.getCurrentFilterAsText = function (values, data, lang) {
+            var value = this.prepareFilter(values);
+            var valueObject = value.filterValue ? data.find(function (el) { return el.Value == value.filterValue; }) : { Text: "" };
+            return valueObject.Text;
         };
     }
     return selectListWidget;
