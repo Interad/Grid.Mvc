@@ -10,6 +10,7 @@ namespace GridMvc.Html
             GridName = gridName;
             Selectable = true;
             AllowMultipleFilters = false;
+            DisplayActiveFilter = false;
         }
 
         public GridRenderOptions()
@@ -26,6 +27,11 @@ namespace GridMvc.Html
         ///     Is multiple filters allowed
         /// </summary>
         public bool AllowMultipleFilters { get; set; }
+
+        /// <summary>
+        ///     Show active filter in table header
+        /// </summary>
+        public bool DisplayActiveFilter { get; set; }
 
         /// <summary>
         ///     Gets or set grid items selectable

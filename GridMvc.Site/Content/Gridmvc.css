@@ -30,6 +30,9 @@ table.grid-table .grid-dropdown-inner ul.menu-list li a.grid-filter-clear { whit
 table.grid-table .grid-filter-choose.choose-selected { background-color: white!important; cursor: default; color: #999; }
 table.grid-table .grid-popup-additional { padding: 3px 0 0 0; }
 
+/* filter text */
+table.grid-table .grid-header-title div.filter-data-text { font-weight: 200; font-style: italic; }
+
 /* POP-UP */
 .grid-dropdown { font-weight: normal; left: -102px; top: 16px!important; min-width: 180px; }
 .grid-dropdown-arrow { background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAICAYAAADJEc7MAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAl0lEQVQoU42PMQuFMAyE6xN5gpOjjsIb/P9/o3O3zh27dY25kIPq8DBwmLT35WoQkUEVOmGec84CaW2q7+N+AdCD6M9SisQYTei1jsfyCeCu+vjFVGs1AN++94DRfUOfuNLoKUiyRC5y2F5I8NdaM4P/l0EswvBorQTnfxBhLMRih+2pklIy+eEtjQPu6MNZwIBNbwteMBd5X4ZGHcwL3QAAAABJRU5ErkJggg==") no-repeat; height: 8px; left: 99px; position: absolute; top: -8px; width: 14px; }
