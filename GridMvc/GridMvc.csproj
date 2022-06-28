@@ -190,6 +190,7 @@
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Sanitizer.cs" />
+    <Compile Include="Sorting\OrderByJsonGridOrderer.cs" />
     <Compile Include="Sorting\OrderByGridOrderer.cs" />
     <Compile Include="Sorting\IColumnOrderer.cs" />
     <Compile Include="Sorting\ThenByColumnOrderer.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Sorting\SortGridItemsProcessor.cs" />
     <Compile Include="Utility\CustomQueryStringBuilder.cs" />
     <Compile Include="Utility\ExportableGrid\ExportableGrid.cs" />
+    <Compile Include="Utility\DbStringConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Strings.it.resx">

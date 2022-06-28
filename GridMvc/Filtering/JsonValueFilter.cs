@@ -55,7 +55,7 @@ namespace GridMvc.Filtering
             // call DBFunction for JSON_VALUE
             MethodInfo methodInfoJsonValue = typeof(CustomFunction).GetMethod("JsonValue", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
             Expression jsonValueExpression = Expression.Call(methodInfoJsonValue, firstExpr, Expression.Constant($"$.{value.ColumnName}"));
-            Expression convertedValue = GetConvertToTypeExpression(filterType.TargetType, jsonValueExpression);
+            Expression convertedValue = DbStringConverter.GetConvertToTypeExpression(filterType.TargetType, jsonValueExpression);
 
             Expression binaryExpression = filterType.GetFilterExpression(convertedValue, value.FilterValue, value.FilterType);
             if (binaryExpression == null)
@@ -78,34 +78,6 @@ namespace GridMvc.Filtering
             }
             //return filter expression
             return Expression.Lambda<Func<T, bool>>(binaryExpression, entityParam);
-        }
-
-        private Expression GetConvertToTypeExpression(Type targetType, Expression leftSide)
-        {
-            if (targetType == typeof(decimal))
-            {
-                return GetConvertToDecimal(leftSide);
-            }
-            else if (targetType == typeof(DateTime))
-            {
-                return GetConvertToDateTimeExpression(leftSide);
-            }
-
-            return leftSide;
-        }
-
-        private Expression GetConvertToDateTimeExpression(Expression leftSide)
-        {
-            MethodInfo methodInfoToDateTime = typeof(CustomFunction).GetMethod("ToDateTime2", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-            Expression convertedValue = Expression.Call(methodInfoToDateTime, leftSide, Expression.Constant("yyyy-MM-dd HH:mm:ss"));
-            return convertedValue;
-        }
-
-        private Expression GetConvertToDecimal(Expression leftSide)
-        {
-            MethodInfo methodInfoToDateTime = typeof(CustomFunction).GetMethod("ToDecimal", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-            Expression convertedValue = Expression.Call(methodInfoToDateTime, leftSide);
-            return convertedValue;
         }
     }
 }

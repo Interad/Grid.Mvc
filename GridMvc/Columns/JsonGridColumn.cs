@@ -57,7 +57,7 @@ namespace GridMvc.Columns
                         "expression");
 
                 _constraint = expression.Compile();
-                _orderers.Insert(0, new OrderByGridOrderer<T, string>(expression));
+                _orderers.Insert(0, new OrderByJsonGridOrderer<T, TDataType>(expression, propertyName));
                 _filter = new JsonValueFilter<T, TDataType>(expression, propertyName);
                 //Generate unique column name:
                 Name = PropertiesHelper.BuildColumnNameFromMemberExpression(expr);
