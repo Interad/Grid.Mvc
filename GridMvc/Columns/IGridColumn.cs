@@ -68,6 +68,11 @@ namespace GridMvc.Columns
         IGridColumn<T> Format(string pattern);
 
         /// <summary>
+        ///     Write cell value also in title attribute
+        /// </summary>
+        IGridColumn<T> RenderTitleAttribute(bool fillTitleAttribute);
+
+        /// <summary>
         ///     Supply a custom filter option that is executed
         /// </summary>
         IGridColumn<T> SetCustomFilter(Expression<Func<T, string, bool>> expression);
@@ -98,6 +103,11 @@ namespace GridMvc.Columns
         bool EncodeEnabled { get; }
 
         bool SanitizeEnabled { get; }
+
+        /// <summary>
+        ///     Write cell value also in title attribute
+        /// </summary>
+        bool RenderTitleAttribute { get; set; }
 
         IGridColumnHeaderRenderer HeaderRenderer { get; set; }
         IGridCellRenderer CellRenderer { get; set; }

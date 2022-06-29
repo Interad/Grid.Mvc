@@ -26,6 +26,8 @@ namespace GridMvc.Columns
 
         public string Name { get; set; }
 
+        public bool RenderTitleAttribute { get; set; }
+
         public bool IsSorted { get; set; }
         public GridSortDirection? Direction { get; set; }
 
@@ -56,6 +58,12 @@ namespace GridMvc.Columns
         IGridColumn<T> IColumn<T>.SetWidth(int width)
         {
             Width = width.ToString(CultureInfo.InvariantCulture) + "px";
+            return this;
+        }
+
+        IGridColumn<T> IColumn<T>.RenderTitleAttribute(bool fillTitleAttribute)
+        {
+            RenderTitleAttribute = fillTitleAttribute;
             return this;
         }
 

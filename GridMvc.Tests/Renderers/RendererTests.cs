@@ -86,6 +86,7 @@ namespace GridMvc.Tests.Renderers
             var renderer = new QueryStringSortColumnHeaderRenderer(settings);
 
             var column = new GridColumn<TestModel, string>(c => c.Title, new TestGrid(Enumerable.Empty<TestModel>()));
+            column.RenderTitleAttribute = true;
 
             var htmlString = renderer.Render(column);
             Assert.IsNotNull(htmlString);
