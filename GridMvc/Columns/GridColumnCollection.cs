@@ -59,6 +59,32 @@ namespace GridMvc.Columns
             return Add(newColumn);
         }
 
+        public IGridColumn<T> AddJsonColumn<TDataType>(Expression<Func<T, string>> constraint, string propertyName, bool hidden)
+        {
+            IGridColumn<T> newColumn = CreateJsonValueColumn<TDataType>(constraint, propertyName, hidden, string.Empty);
+            return Add(newColumn);
+        }
+
+        public IGridColumn<T> AddJsonColumn<TDataType>(Expression<Func<T, string>> constraint, string propertyName)
+        {
+            IGridColumn<T> newColumn = CreateJsonValueColumn<TDataType>(constraint, propertyName, false, string.Empty);
+            return Add(newColumn);
+        }
+
+        public IGridColumn<T> AddJsonColumn<TDataType>(Expression<Func<T, string>> constraint, string propertyName, string columnName)
+        {
+            IGridColumn<T> newColumn = CreateJsonValueColumn<TDataType>(constraint, propertyName, false, columnName);
+            return Add(newColumn);
+        }
+
+        public IGridColumn<T> AddJsonColumn<TDataType>(PropertyInfo pi, string propertyName)
+        {
+            IGridColumn<T> newColumn = _columnBuilder.CreateJsonValueColumn<TDataType>(pi, propertyName);
+            if (newColumn == null)
+                return null;
+            return Add(newColumn);
+        }
+
         public IGridColumn<T> Add(IGridColumn<T> column)
         {
             if (column == null)
@@ -135,6 +161,17 @@ namespace GridMvc.Columns
             IGridColumn<T> newColumn = _columnBuilder.CreateColumn(constraint, hidden);
             if (!string.IsNullOrEmpty(columnName))
                 newColumn.Name = columnName;
+            return newColumn;
+        }
+
+        private IGridColumn<T> CreateJsonValueColumn<TDataType>(Expression<Func<T, string>> constraint, string propertyName, bool hidden, string columnName)
+        {
+            IGridColumn<T> newColumn = _columnBuilder.CreateJsonValueColumn<TDataType>(constraint, propertyName, hidden);
+            if (!string.IsNullOrEmpty(columnName))
+                newColumn.Name = columnName;
+            else
+                newColumn.Name = propertyName;
+
             return newColumn;
         }
 

@@ -25,7 +25,10 @@ namespace GridMvc
                 builder.MergeAttribute("style", cssStyles);
             builder.MergeAttribute("data-name", column.Name);
 
-            builder.InnerHtml = cell.ToString();
+            var value = cell.ToString();
+            if (column.RenderTitleAttribute)
+                builder.MergeAttribute("title", value);
+            builder.InnerHtml = value;
 
             return MvcHtmlString.Create(builder.ToString());
         }

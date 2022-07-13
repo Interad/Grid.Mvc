@@ -148,6 +148,21 @@ namespace GridMvc.Html
         }
 
         /// <summary>
+        ///     Displays active filter in table header
+        /// </summary>
+        public IGridHtmlOptions<T> DisplayActiveFilter()
+        {
+            _source.RenderOptions.DisplayActiveFilter = true;
+            return this;
+        }
+
+        public IGridHtmlOptions<T> DisplayActiveFilter(bool enable)
+        {
+            _source.RenderOptions.DisplayActiveFilter = enable;
+            return this;
+        }
+
+        /// <summary>
         ///     Shows a grid items count
         /// </summary>
         /// <param name="formatString">A format string for the items count, defaults to "Items count: {0}"</param>
