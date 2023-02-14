@@ -26,7 +26,7 @@ namespace GridMvc.Site.Models.Grids
 
         public int CurrentPage { get; set; }
 
-        public int CustomItemsCount { get; set; }
+        public int? ItemsCountOverwrite { get; set; }
 
         public string TemplateName
         {

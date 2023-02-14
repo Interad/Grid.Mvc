@@ -130,8 +130,8 @@ namespace GridMvc.Pagination
 
         public virtual void Initialize<T>(IQueryable<T> items)
         {
-            if (CustomItemsCount > 0)
-                ItemsCount = CustomItemsCount;
+            if (ItemsCountOverwrite.HasValue)
+                ItemsCount = ItemsCountOverwrite.Value;
             else
                 ItemsCount = items.Count(); //take total items count from collection
         }
@@ -159,7 +159,7 @@ namespace GridMvc.Pagination
         public int StartDisplayedPage { get; protected set; }
         public int EndDisplayedPage { get; protected set; }
         public string TemplateName { get; set; }
-        public int CustomItemsCount { get; set; }
+        public int? ItemsCountOverwrite { get; set; }
 
         public virtual string GetLinkForPage(int pageIndex)
         {
