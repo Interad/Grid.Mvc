@@ -82,7 +82,6 @@ namespace GridMvc.Pagination
 
         public static int GetCurrentPage(HttpContext context, string parameterName = null)
         {
-
             if (string.IsNullOrEmpty(parameterName))
                 parameterName = DefaultPageQueryParameter;
 
