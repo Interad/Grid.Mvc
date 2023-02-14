@@ -53,10 +53,10 @@ namespace GridMvc.Html
 
         public IGridHtmlOptions<T> WithPaging(int pageSize, int maxDisplayedItems, string queryStringParameterName)
         {
-            return WithPaging(pageSize, maxDisplayedItems, queryStringParameterName, 0);
+            return WithPaging(pageSize, maxDisplayedItems, queryStringParameterName, null);
         }
 
-        public IGridHtmlOptions<T> WithPaging(int pageSize, int maxDisplayedItems, string queryStringParameterName, int customItemsCount)
+        public IGridHtmlOptions<T> WithPaging(int pageSize, int maxDisplayedItems, string queryStringParameterName, int? itemsCountOverwrite)
         {
             _source.EnablePaging = true;
             _source.Pager.PageSize = pageSize;
@@ -68,8 +68,8 @@ namespace GridMvc.Html
                 pager.MaxDisplayedPages = maxDisplayedItems;
             if (!string.IsNullOrEmpty(queryStringParameterName))
                 pager.ParameterName = queryStringParameterName;
-            if (customItemsCount > 0)
-                pager.CustomItemsCount = customItemsCount;
+            if (itemsCountOverwrite.HasValue)
+                pager.ItemsCountOverwrite = itemsCountOverwrite.Value;
             _source.Pager = pager;
             return this;
         }

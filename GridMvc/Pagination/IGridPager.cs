@@ -22,7 +22,7 @@ namespace GridMvc.Pagination
         /// <summary>
         ///     Total count of items, overrules default ItemsCount
         /// </summary>
-        int CustomItemsCount { get; set; }
+        int? ItemsCountOverwrite { get; set; }
 
         /// <summary>
         ///     Method invokes before pager render
