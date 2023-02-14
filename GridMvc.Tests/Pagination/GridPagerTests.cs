@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Web;
 using GridMvc.Pagination;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,7 +25,7 @@ namespace GridMvc.Tests.Pagination
             _pager.ItemsCount = 1200;
             _pager.PageSize = 13;
 
-            Assert.AreEqual(_pager.PageCount, 93);
+            Assert.AreEqual(93, _pager.PageCount);
         }
 
         [TestMethod]
@@ -35,9 +37,9 @@ namespace GridMvc.Tests.Pagination
             _pager.MaxDisplayedPages = 5;
             _pager.CurrentPage = 40;
 
-            Assert.AreEqual(_pager.TemplateName, "_GridPager");
-            Assert.AreEqual(_pager.StartDisplayedPage, 38);
-            Assert.AreEqual(_pager.EndDisplayedPage, 42);
+            Assert.AreEqual("_GridPager", _pager.TemplateName);
+            Assert.AreEqual(38, _pager.StartDisplayedPage);
+            Assert.AreEqual(42, _pager.EndDisplayedPage);
         }
 
         [TestMethod]
@@ -47,7 +49,43 @@ namespace GridMvc.Tests.Pagination
             _pager.PageSize = 13;
             _pager.CurrentPage = 1000;
 
-            Assert.AreEqual(_pager.PageCount, _pager.CurrentPage);
+            Assert.AreEqual(_pager.CurrentPage, _pager.PageCount);
+        }
+
+        [TestMethod]
+        public void PagerItemsCountTest()
+        {
+            var list = new List<string> { "1", "2" };
+            _pager.Initialize(list.AsQueryable());
+
+            Assert.AreEqual(list.Count, _pager.ItemsCount);
+        }
+
+        [TestMethod]
+        public void PagerItemsCountOverwriteTest()
+        {
+            const int expectedItemsCount = 2768;
+            var list = new List<string> { "1", "2" };
+            _pager.ItemsCountOverwrite = expectedItemsCount;
+            _pager.Initialize(list.AsQueryable());
+
+            Assert.AreEqual(expectedItemsCount, _pager.ItemsCount);
+        }
+
+        [TestMethod]
+        public void PagerGetCurrentPageTest()
+        {
+            var context = new HttpContext(new HttpRequest("", "http://tempuri.org", $"{GridPager.DefaultPageQueryParameter}=7"), new HttpResponse(new StringWriter()));
+            var actual = GridPager.GetCurrentPage(context);
+            Assert.AreEqual(7, actual);
+        }
+
+        [TestMethod]
+        public void PagerGetCurrentPageWithCustomParameterTest()
+        {
+            var context = new HttpContext(new HttpRequest("", "http://tempuri.org", $"{GridPager.DefaultPageQueryParameter}=9&foo-page=7&foo-site=82"), new HttpResponse(new StringWriter()));
+            var actual = GridPager.GetCurrentPage(context, "foo-page");
+            Assert.AreEqual(7, actual);
         }
     }
 }
