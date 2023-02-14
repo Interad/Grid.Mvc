@@ -61,6 +61,9 @@ namespace GridMvc.Html
             _source.EnablePaging = true;
             _source.Pager.PageSize = pageSize;
 
+            if (itemsCountOverwrite.HasValue)
+                _source.Pager.ItemsCountOverwrite = itemsCountOverwrite.Value;
+
             var pager = _source.Pager as GridPager; //This setting can be applied only to default grid pager
             if (pager == null) return this;
 
@@ -68,8 +71,6 @@ namespace GridMvc.Html
                 pager.MaxDisplayedPages = maxDisplayedItems;
             if (!string.IsNullOrEmpty(queryStringParameterName))
                 pager.ParameterName = queryStringParameterName;
-            if (itemsCountOverwrite.HasValue)
-                pager.ItemsCountOverwrite = itemsCountOverwrite.Value;
             _source.Pager = pager;
             return this;
         }
