@@ -20,6 +20,11 @@ namespace GridMvc.Core.Pagination
         string TemplateName { get; }
 
         /// <summary>
+        ///     Total count of items, overrules default ItemsCount
+        /// </summary>
+        int? ItemsCountOverwrite { get; set; }
+
+        /// <summary>
         ///     Method invokes before pager render
         /// </summary>
         void Initialize<T>(IQueryable<T> items);

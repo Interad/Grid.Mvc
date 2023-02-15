@@ -86,7 +86,7 @@ namespace GridMvc.Pagination
                 parameterName = DefaultPageQueryParameter;
 
             var currentPageString = context.Request.QueryString[parameterName] ?? "1";
-            if (!int.TryParse(currentPageString, out int currentPage))
+            if (!int.TryParse(currentPageString, out var currentPage))
                 currentPage = 1;
 
             return currentPage;

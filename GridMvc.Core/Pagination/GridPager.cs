@@ -61,9 +61,7 @@ namespace GridMvc.Core.Pagination
             get
             {
                 if (_currentPage >= 0) return _currentPage;
-                string currentPageString = _context.Request.Query.GetValue(ParameterName) ?? "1";
-                if (!int.TryParse(currentPageString, out _currentPage))
-                    _currentPage = 1;
+                _currentPage = GetCurrentPage(_context, ParameterName);
                 if (_currentPage > PageCount)
                     _currentPage = PageCount;
                 return _currentPage;
@@ -75,6 +73,18 @@ namespace GridMvc.Core.Pagination
                     _currentPage = PageCount;
                 RecalculatePages();
             }
+        }
+
+        public static int GetCurrentPage(HttpContext context, string parameterName = null)
+        {
+            if (string.IsNullOrEmpty(parameterName))
+                parameterName = DefaultPageQueryParameter;
+
+            var currentPageString = context.Request.Query[parameterName].FirstOrDefault() ?? "1";
+            if (!int.TryParse(currentPageString, out var currentPage))
+                currentPage = 1;
+
+            return currentPage;
         }
 
         #endregion
@@ -114,7 +124,10 @@ namespace GridMvc.Core.Pagination
 
         public virtual void Initialize<T>(IQueryable<T> items)
         {
-            ItemsCount = items.Count(); //take total items count from collection
+            if (ItemsCountOverwrite.HasValue)
+                ItemsCount = ItemsCountOverwrite.Value;
+            else
+                ItemsCount = items.Count(); //take total items count from collection
         }
 
         protected virtual void RecalculatePages()
@@ -140,6 +153,7 @@ namespace GridMvc.Core.Pagination
         public int StartDisplayedPage { get; protected set; }
         public int EndDisplayedPage { get; protected set; }
         public string TemplateName { get; set; }
+        public int? ItemsCountOverwrite { get; set; }
 
         public virtual string GetLinkForPage(int pageIndex)
         {

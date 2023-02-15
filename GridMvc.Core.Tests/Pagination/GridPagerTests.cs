@@ -1,5 +1,8 @@
-﻿using GridMvc.Core.Pagination;
+﻿using System.Collections.Generic;
+using System.Linq;
+using GridMvc.Core.Pagination;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GridMvc.Core.Tests.Pagination
@@ -48,6 +51,40 @@ namespace GridMvc.Core.Tests.Pagination
             _pager.CurrentPage = 1000;
 
             Assert.AreEqual(_pager.PageCount, _pager.CurrentPage);
+        }
+
+        [TestMethod]
+        public void PagerItemsCountOverwriteTest()
+        {
+            const int expectedItemsCount = 2768;
+            var list = new List<string> { "1", "2" };
+            _pager.ItemsCountOverwrite = expectedItemsCount;
+            _pager.Initialize(list.AsQueryable());
+
+            Assert.AreEqual(expectedItemsCount, _pager.ItemsCount);
+        }
+
+        [TestMethod]
+        public void PagerGetCurrentPageTest()
+        {
+            var queryCollection = new QueryCollection(new Dictionary<string, StringValues> { { GridPager.DefaultPageQueryParameter, "7" } });
+            _httpContext = Helpers.MockHttpContext(queryCollection);
+            var actual = GridPager.GetCurrentPage(_httpContext);
+            Assert.AreEqual(7, actual);
+        }
+
+        [TestMethod]
+        public void PagerGetCurrentPageWithCustomParameterTest()
+        {
+            var queryCollection = new QueryCollection(new Dictionary<string, StringValues>
+            {
+                { GridPager.DefaultPageQueryParameter, "9" },
+                { "foo-page", new StringValues(new[] { "7", "12" }) },
+                { "foo-site", "82" },
+            });
+            _httpContext = Helpers.MockHttpContext(queryCollection);
+            var actual = GridPager.GetCurrentPage(_httpContext, "foo-page");
+            Assert.AreEqual(7, actual);
         }
     }
 }

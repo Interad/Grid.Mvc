@@ -11,10 +11,10 @@ namespace GridMvc.Core.Tests
 {
     internal static class Helpers
     {
-        public static HttpContext MockHttpContext()
+        public static HttpContext MockHttpContext(QueryCollection query = null)
         {
             var httpRequestMock = new Mock<HttpRequest>();
-            httpRequestMock.SetupGet(x => x.Query).Returns(new QueryCollection());
+            httpRequestMock.SetupGet(x => x.Query).Returns(query ?? new QueryCollection());
             var httpResponseMock = new Mock<HttpResponse>();
             var httpContextMock = new Mock<HttpContext>();
             httpContextMock.SetupGet(x => x.Request).Returns(httpRequestMock.Object);
