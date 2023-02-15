@@ -1,4 +1,5 @@
 ﻿window.GridMvc = window.GridMvc || {};
+window.GridMvc.lang = window.GridMvc.lang || {};
 GridMvc.lang.de = {
     filterTypeLabel: "Art: ",
     filterValueLabel: "Wert:",
@@ -16,5 +17,5 @@ GridMvc.lang.de = {
     code: 'de',
     boolTrueLabel: "Ja",
     boolFalseLabel: "Nein",
-    clearFilterLabel: "Filter rücksetzen"
+    clearFilterLabel: "Filter löschen"
 };

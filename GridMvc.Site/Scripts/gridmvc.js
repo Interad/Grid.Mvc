@@ -1,9 +1,9 @@
 ﻿/***
 * Grid.Mvc
-* Examples and documentation at: http://gridmvc.codeplex.com
+* Examples and documentation at: https://github.com/Interad/Grid.Mvc
 * Version: 3.0.0
 * Requires: window.jQuery v1.3+
-* LGPL license: http://gridmvc.codeplex.com/license
+* LGPL license: https://github.com/Interad/Grid.Mvc/blob/master/LICENSE.md
 */
 window.pageGrids = window.pageGrids || {};
 $.fn.extend({
@@ -405,7 +405,7 @@ GridMvc.lang.en = {
 };
 /***
 * ============= FILTER WIDGETS =============
-* Filter widget allows onRender custom filter user interface for different columns. 
+* Filter widget allows onRender custom filter user interface for different columns.
 * For example if your added column is of type "DateTime" - widget can onRender calendar for picking filter value.
 * This script provider base widget for default .Net types: System.String, System.Int32, System.Decimal etc.
 * If you want to provide custom filter functionality - you can assign your own widget type for column and write widget for this types.
@@ -519,7 +519,7 @@ NumberFilterWidget = (function ($) {
 
     numberFilterWidget.prototype.onShow = function () {
         var textBox = this.container.find(".grid-filter-input");
-        if (textBox.length <= 0) return; 
+        if (textBox.length <= 0) return;
         textBox.focus();
     };
 
@@ -715,7 +715,7 @@ BooleanFilterWidget = (function ($) {
         this.container.append(html);
     };
 
-    booleanFilterWidget.prototype.registerEvents = function () { 
+    booleanFilterWidget.prototype.registerEvents = function () {
         var $context = this;
         var applyBtn = this.container.find(".grid-filter-choose");
         applyBtn.click(function () {

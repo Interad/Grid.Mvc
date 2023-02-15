@@ -1,13 +1,22 @@
 ﻿@using GridMvc.Columns
 @model GridMvc.IGrid
-@if (Model == null) { return; }
+
+@if (Model == null)
+{
+    return;
+}
+
 @if (Model.RenderOptions.RenderRowsOnly)
 {
-    @RenderGridBody();
+    @RenderGridBody()
 }
 else
 {
-    <div class="grid-mvc" data-lang="@Model.Language" data-gridname="@Model.RenderOptions.GridName" data-selectable="@Model.RenderOptions.Selectable.ToString().ToLower()" data-multiplefilters="@Model.RenderOptions.AllowMultipleFilters.ToString().ToLower()">
+    <div class="grid-mvc"
+         data-lang="@Model.Language"
+         data-gridname="@Model.RenderOptions.GridName"
+         data-selectable="@Model.RenderOptions.Selectable.ToString().ToLower()"
+         data-multiplefilters="@Model.RenderOptions.AllowMultipleFilters.ToString().ToLower()">
         <div class="grid-wrap">
             <table class="table table-striped grid-table">
                 @* Draw grid header *@
@@ -22,6 +31,7 @@ else
         </div>
     </div>
 }
+
 @helper RenderGridBody()
 {
     if (!Model.ItemsToDisplay.Any())
@@ -34,7 +44,7 @@ else
     }
     else
     {
-        foreach (object item in Model.ItemsToDisplay)
+        foreach (var item in Model.ItemsToDisplay)
         {
             <tr class="grid-row @Model.GetRowCssClasses(item)">
                 @foreach (IGridColumn column in Model.Columns)
@@ -45,6 +55,7 @@ else
         }
     }
 }
+
 @helper RenderGridHeader()
 {
     <tr>
@@ -54,6 +65,7 @@ else
         }
     </tr>
 }
+
 @helper RenderGridFooter()
 {
     if (Model.RenderOptions.ShowGridItemsCount || Model.EnablePaging && Model.Pager != null)

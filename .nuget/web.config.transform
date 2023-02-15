@@ -2,8 +2,8 @@
   <system.web>
     <pages>
       <namespaces>
-        <add namespace ="GridMvc" />
+        <add namespace="GridMvc" />
       </namespaces>
-    </pages>  
+    </pages>
   </system.web>
 </configuration>
