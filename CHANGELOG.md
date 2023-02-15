@@ -8,8 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Breaking Changes
 
 ### Added
-* Property `ItemsCountOverwrite` for the possibility to manually overwrite the grids `ItemsCount` (can be set with new `WithPaging()` overload)
 
 ### Fixes
 
 ### Changes
+
+## 3.2.1
+
+### Added
+* Property `ItemsCountOverwrite` for the possibility to manually overwrite the grids `ItemsCount` (can be set with new `WithPaging()` overload)
