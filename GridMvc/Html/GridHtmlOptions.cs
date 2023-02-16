@@ -173,7 +173,7 @@ namespace GridMvc.Html
             return this;
         }
 
-        public IGridHtmlOptions<T> WithCustomPaging(int? itemsCountOverwrite)
+        public IGridHtmlOptions<T> WithCustomPaging(int? itemsCountOverwrite = null)
         {
             _source.Pager.CustomPaging = true;
 

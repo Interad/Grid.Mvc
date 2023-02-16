@@ -87,5 +87,32 @@ namespace GridMvc.Tests.Pagination
             var actual = GridPager.GetCurrentPage(context, "foo-page");
             Assert.AreEqual(7, actual);
         }
+
+        [TestMethod]
+        public void PagerGetSkipForCurrentPageTest()
+        {
+            var pageSize = 100;
+            var currentPage = 3;
+            var skip = GridPager.GetSkip(pageSize, currentPage);
+            Assert.AreEqual(200, skip);
+        }
+
+        [TestMethod]
+        public void PagerGetSkipForCurrentPageUriTest()
+        {
+            var pageSize = 100;
+            var context = new HttpContext(new HttpRequest("", "http://tempuri.org", $"{GridPager.DefaultPageQueryParameter}=3"), new HttpResponse(new StringWriter()));
+            var skip = GridPager.GetSkip(pageSize, context);
+            Assert.AreEqual(200, skip);
+        }
+
+        [TestMethod]
+        public void PagerGetSkipForCurrentPageUriWithCustomParameterTest()
+        {
+            var pageSize = 100;
+            var context = new HttpContext(new HttpRequest("", "http://tempuri.org", $"{GridPager.DefaultPageQueryParameter}=3&foo-page=7&foo-site=82"), new HttpResponse(new StringWriter()));
+            var skip = GridPager.GetSkip(pageSize, context, "foo-page");
+            Assert.AreEqual(600, skip);
+        }
     }
 }
