@@ -159,6 +159,7 @@ namespace GridMvc.Pagination
         public int EndDisplayedPage { get; protected set; }
         public string TemplateName { get; set; }
         public int? ItemsCountOverwrite { get; set; }
+        public bool? CustomPaging { get; set; }
 
         public virtual string GetLinkForPage(int pageIndex)
         {

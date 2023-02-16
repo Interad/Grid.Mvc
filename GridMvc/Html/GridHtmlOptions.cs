@@ -173,6 +173,16 @@ namespace GridMvc.Html
             return this;
         }
 
+        public IGridHtmlOptions<T> WithCustomPaging(int? itemsCountOverwrite)
+        {
+            _source.Pager.CustomPaging = true;
+
+            if (itemsCountOverwrite.HasValue)
+                _source.Pager.ItemsCountOverwrite = itemsCountOverwrite.Value;
+
+            return this;
+        }
+
         #endregion
 
         private static string RenderPartialViewToString(string viewName, object model, ViewContext viewContext)

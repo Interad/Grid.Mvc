@@ -105,6 +105,12 @@ namespace GridMvc.Html
         IGridHtmlOptions<T> WithGridItemsCount(string formatString = null);
 
         /// <summary>
+        ///     Disable default paging
+        /// </summary>
+        /// <param name="itemsCountOverwrite">Set the total count of items</param>
+        IGridHtmlOptions<T> WithCustomPaging(int? itemsCountOverwrite);
+
+        /// <summary>
         ///     Obviously render Grid markup
         /// </summary>
         /// <returns>Grid html layout</returns>

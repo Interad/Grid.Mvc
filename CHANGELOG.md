@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Breaking Changes
 
 ### Added
+* Possibility to disable default paging via `WithCustomPaging()`
 
 ### Fixes
 
