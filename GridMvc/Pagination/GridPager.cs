@@ -45,6 +45,7 @@ namespace GridMvc.Pagination
             TemplateName = DefaultPagerViewName;
             MaxDisplayedPages = MaxDisplayedPages;
             PageSize = DefaultPageSize;
+            CustomPaging = false;
         }
 
         #endregion
@@ -80,16 +81,36 @@ namespace GridMvc.Pagination
             }
         }
 
-        public static int GetCurrentPage(HttpContext context, string parameterName = null)
+        /// <summary>
+        ///     Returns current page contained in query string
+        /// </summary>
+        public static int GetCurrentPage(HttpContext context, string queryStringParameterName = null)
         {
-            if (string.IsNullOrEmpty(parameterName))
-                parameterName = DefaultPageQueryParameter;
+            if (string.IsNullOrEmpty(queryStringParameterName))
+                queryStringParameterName = DefaultPageQueryParameter;
 
-            var currentPageString = context.Request.QueryString[parameterName] ?? "1";
+            var currentPageString = context.Request.QueryString[queryStringParameterName] ?? "1";
             if (!int.TryParse(currentPageString, out int currentPage))
                 currentPage = 1;
 
             return currentPage;
+        }
+
+        /// <summary>
+        ///     Returns number of elements that need to be bypassed to get first element of current page which is contained in query string
+        /// </summary>
+        public static int GetSkip(int pageSize, HttpContext context, string queryStringParameterName = null)
+        {
+            var currentPage = GetCurrentPage(context, queryStringParameterName);
+            return GetSkip(pageSize, currentPage);
+        }
+
+        /// <summary>
+        ///     Returns number of elements that need to be bypassed to get first element of current page
+        /// </summary>
+        public static int GetSkip(int pageSize, int currentPage)
+        {
+            return (currentPage - 1) * pageSize;
         }
 
         #endregion
@@ -159,6 +180,7 @@ namespace GridMvc.Pagination
         public int EndDisplayedPage { get; protected set; }
         public string TemplateName { get; set; }
         public int? ItemsCountOverwrite { get; set; }
+        public bool CustomPaging { get; set; }
 
         public virtual string GetLinkForPage(int pageIndex)
         {
