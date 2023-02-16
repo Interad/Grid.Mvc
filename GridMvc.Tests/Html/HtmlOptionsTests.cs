@@ -62,6 +62,18 @@ namespace GridMvc.Tests.Html
         }
 
         [TestMethod]
+        public void WithCustomPagingTest()
+        {
+            Assert.IsFalse(_grid.Pager.CustomPaging);
+
+            _opt.WithCustomPaging();
+            Assert.IsTrue(_grid.Pager.CustomPaging);
+
+            _opt.WithCustomPaging(8542);
+            Assert.AreEqual(8542, _grid.Pager.ItemsCountOverwrite);
+        }
+
+        [TestMethod]
         public void NamedTest()
         {
             _opt.Named("test");
