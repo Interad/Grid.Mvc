@@ -26,8 +26,9 @@ namespace GridMvc.Pagination
 
         /// <summary>
         ///     Disables default paging if set to true
+        ///     Paging navigation is still displayed but the items don't get restricted to the current page and you have to take care of that yourself
         /// </summary>
-        bool? CustomPaging { get; set; }
+        bool CustomPaging { get; set; }
 
         /// <summary>
         ///     Method invokes before pager render

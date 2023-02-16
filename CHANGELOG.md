@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Breaking Changes
 
 ### Added
-* Possibility to disable default paging via `WithCustomPaging()`
+* Possibility to disable default paging via `WithCustomPaging()`. Paging navigation is then still displayed but the items don't get restricted to the current page and you have to take care of that yourself.
 
 ### Fixes
 

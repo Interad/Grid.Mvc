@@ -21,7 +21,7 @@ namespace GridMvc.Pagination
         {
             _pager.Initialize(items); //init pager
 
-            if (_pager.CurrentPage <= 0 || _pager.CustomPaging.GetValueOrDefault()) return items; //incorrect page or activated custom paging
+            if (_pager.CurrentPage <= 0 || _pager.CustomPaging) return items; //incorrect page or activated custom paging
 
             int skip = (_pager.CurrentPage - 1)*_pager.PageSize;
             return items.Skip(skip).Take(_pager.PageSize);

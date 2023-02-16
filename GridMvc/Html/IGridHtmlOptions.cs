@@ -105,7 +105,7 @@ namespace GridMvc.Html
         IGridHtmlOptions<T> WithGridItemsCount(string formatString = null);
 
         /// <summary>
-        ///     Disable default paging
+        ///     Disable default paging. Paging navigation is still displayed but the items don't get restricted to the current page and you have to take care of that yourself
         /// </summary>
         /// <param name="itemsCountOverwrite">Set the total count of items</param>
         IGridHtmlOptions<T> WithCustomPaging(int? itemsCountOverwrite);
