@@ -13,6 +13,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ### Changes
 
+## 3.2.3
+
+### Fixes
+* Fix for custom filters in environments that used the minified js version
+
 ## 3.2.2
 
 ### Added
